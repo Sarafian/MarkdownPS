@@ -24,33 +24,33 @@ Describe "New-MDList" {
 Describe "New-MDList -Style Unordered" {
     $style="Unordered"
     It "-Lines count is 1 & -Level not specified" {
-        $expected="* Line 1"+$newLine
+        $expected="- Line 1"+$newLine
         New-MDList -Lines "Line 1" -Style $style | Should Be $expected
         New-MDList -Lines @("Line 1")  -Style $style | Should Be $expected
         "Line 1" | New-MDList  -Style $style| Should Be $expected
         @("Line 1") | New-MDList  -Style $style| Should Be $expected
     }
     It "-Lines count is 2 & -Level not specified" {
-        $expected="* Line 1"+$newLine+"* Line 2"+$newLine
+        $expected="- Line 1"+$newLine+"- Line 2"+$newLine
         New-MDList -Lines @("Line 1","Line 2") -Style $style | Should Be $expected
         @("Line 1","Line 2") | New-MDList -Style $style | Should Be $expected
     }
     It "-Lines count is 1 & -Level provided" {
-        $expected="* Line 1"+$newLine
+        $expected="- Line 1"+$newLine
         $level=1
         New-MDList -Lines "Line 1" -Level $level -Style $style | Should Be $expected
         New-MDList -Lines @("Line 1")  -Level $level -Style $style | Should Be $expected
         "Line 1" | New-MDList  -Level $level -Style $style | Should Be $expected
         @("Line 1") | New-MDList  -Level $level -Style $style | Should Be $expected
 
-        $expected=" * Line 1"+$newLine
+        $expected="  - Line 1"+$newLine
         $level=2
         New-MDList -Lines "Line 1" -Level $level -Style $style | Should Be $expected
         New-MDList -Lines @("Line 1")  -Level $level -Style $style | Should Be $expected
         "Line 1" | New-MDList  -Level $level -Style $style | Should Be $expected
         @("Line 1") | New-MDList  -Level $level -Style $style | Should Be $expected
 
-        $expected="  * Line 1"+$newLine
+        $expected="    - Line 1"+$newLine
         $level=3
         New-MDList -Lines "Line 1" -Level $level -Style $style | Should Be $expected
         New-MDList -Lines @("Line 1")  -Level $level -Style $style | Should Be $expected
@@ -58,17 +58,17 @@ Describe "New-MDList -Style Unordered" {
         @("Line 1") | New-MDList  -Level $level -Style $style | Should Be $expected
     }
     It "-Lines count is 2 & -Level provided" {
-        $expected="* Line 1"+$newLine+"* Line 2"+$newLine
+        $expected="- Line 1"+$newLine+"- Line 2"+$newLine
         $level=1
         New-MDList -Lines @("Line 1","Line 2") -Level $level -Style $style | Should Be $expected
         @("Line 1","Line 2") | New-MDList  -Level $level -Style $style | Should Be $expected
 
-        $expected=" * Line 1"+$newLine+" * Line 2"+$newLine
+        $expected="  - Line 1"+$newLine+"  - Line 2"+$newLine
         $level=2
         New-MDList -Lines @("Line 1","Line 2") -Level $level -Style $style | Should Be $expected
         @("Line 1","Line 2") | New-MDList  -Level $level -Style $style | Should Be $expected
 
-        $expected="  * Line 1"+$newLine+"  * Line 2"+$newLine
+        $expected="    - Line 1"+$newLine+"    - Line 2"+$newLine
         $level=3
         New-MDList -Lines @("Line 1","Line 2") -Level $level -Style $style | Should Be $expected
         @("Line 1","Line 2") | New-MDList  -Level $level -Style $style | Should Be $expected
@@ -96,14 +96,14 @@ Describe "New-MDList -Style Ordered" {
         "Step 1" | New-MDList  -Level $level -Style $style | Should Be $expected
         @("Step 1") | New-MDList  -Level $level -Style $style | Should Be $expected
 
-        $expected=" 1. Step 1"+$newLine
+        $expected="   1. Step 1"+$newLine
         $level=2
         New-MDList -Lines "Step 1" -Level $level -Style $style | Should Be $expected
         New-MDList -Lines @("Step 1")  -Level $level -Style $style | Should Be $expected
         "Step 1" | New-MDList  -Level $level -Style $style | Should Be $expected
         @("Step 1") | New-MDList  -Level $level -Style $style | Should Be $expected
 
-        $expected="  1. Step 1"+$newLine
+        $expected="      1. Step 1"+$newLine
         $level=3
         New-MDList -Lines "Step 1" -Level $level -Style $style | Should Be $expected
         New-MDList -Lines @("Step 1")  -Level $level -Style $style | Should Be $expected
@@ -116,12 +116,12 @@ Describe "New-MDList -Style Ordered" {
         New-MDList -Lines @("Step 1","Step 2") -Level $level -Style $style | Should Be $expected
         @("Step 1","Step 2") | New-MDList  -Level $level -Style $style | Should Be $expected
 
-        $expected=" 1. Step 1"+$newLine+" 2. Step 2"+$newLine
+        $expected="   1. Step 1"+$newLine+"   2. Step 2"+$newLine
         $level=2
         New-MDList -Lines @("Step 1","Step 2") -Level $level -Style $style | Should Be $expected
         @("Step 1","Step 2") | New-MDList  -Level $level -Style $style | Should Be $expected
 
-        $expected="  1. Step 1"+$newLine+"  2. Step 2"+$newLine
+        $expected="      1. Step 1"+$newLine+"      2. Step 2"+$newLine
         $level=3
         New-MDList -Lines @("Step 1","Step 2") -Level $level -Style $style | Should Be $expected
         @("Step 1","Step 2") | New-MDList  -Level $level -Style $style | Should Be $expected

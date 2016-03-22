@@ -28,7 +28,15 @@
         $prefix=""
         for($i=2; $i -le $Level; $i++)
         {
-            $prefix+=" "
+            switch ($Style) 
+            { 
+                "Unordered" {
+                    $prefix+="  "
+                } 
+                "Ordered" {
+                    $prefix+="   "
+                } 
+            }
         }
     }
 
@@ -36,7 +44,7 @@
         switch ($Style) 
         { 
             "Unordered" {
-                $Lines|ForEach-Object {$output+="$prefix* "+$_+[System.Environment]::NewLine}
+                $Lines|ForEach-Object {$output+="$prefix- "+$_+[System.Environment]::NewLine}
             } 
             "Ordered" {
                 $Lines|ForEach-Object {

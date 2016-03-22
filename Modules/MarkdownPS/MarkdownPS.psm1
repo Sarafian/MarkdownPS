@@ -7,7 +7,7 @@
 . $PSScriptRoot\New-MDInlineCode.ps1          
 . $PSScriptRoot\New-MDCode.ps1                
 . $PSScriptRoot\New-MDImage.ps1               
-. $PSScriptRoot\ConvertFrom-Markdown.ps1      
-. $PSScriptRoot\ConvertTo-Markdown.ps1        
+#. $PSScriptRoot\ConvertFrom-Markdown.ps1      
+#. $PSScriptRoot\ConvertTo-Markdown.ps1        
 
 

@@ -2,21 +2,24 @@
 $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".")
 . "$here\$sut"
 
+$newLine=[System.Environment]::NewLine
 Describe "New-MDHeader" {
     It "-Level not provided" {
-        New-MDHeader -Text "This is an H1" | Should Be "# This is an H1"
-        "This is an H1"|New-MDHeader | Should Be "# This is an H1"
-        @("This is an H1","This is an H1")|New-MDHeader | Should Be @("# This is an H1","# This is an H1")
+        $expected="# This is an H1"+$newLine
+        New-MDHeader -Text "This is an H1" | Should Be $expected
+        "This is an H1"|New-MDHeader | Should Be $expected
+        @("This is an H1","This is an H1")|New-MDHeader | Should Be @($expected,$expected)
     }
     It "-Level provided" {
-        New-MDHeader -Text "This is an H1" -Level 1 | Should Be "# This is an H1"
-        New-MDHeader -Text "This is an H2" -Level 2 | Should Be "## This is an H2"
-        New-MDHeader -Text "This is an H3" -Level 3 | Should Be "### This is an H3"
-        New-MDHeader -Text "This is an H4" -Level 4 | Should Be "#### This is an H4"
-        New-MDHeader -Text "This is an H5" -Level 5 | Should Be "##### This is an H5"
-        New-MDHeader -Text "This is an H6" -Level 6 | Should Be "###### This is an H6"
-        "This is an H2"|New-MDHeader -Level 2| Should Be "## This is an H2"
-        @("This is an H1","This is an H2")|New-MDHeader -Level 3| Should Be @("### This is an H1","### This is an H2")
+        New-MDHeader -Text "This is an H1" -Level 1 | Should Be ("# This is an H1"+$newLine)
+        New-MDHeader -Text "This is an H2" -Level 2 | Should Be ("## This is an H2"+$newLine)
+        New-MDHeader -Text "This is an H3" -Level 3 | Should Be ("### This is an H3"+$newLine)
+        New-MDHeader -Text "This is an H4" -Level 4 | Should Be ("#### This is an H4"+$newLine)
+        New-MDHeader -Text "This is an H5" -Level 5 | Should Be ("##### This is an H5"+$newLine)
+        New-MDHeader -Text "This is an H6" -Level 6 | Should Be ("###### This is an H6"+$newLine)
+        "This is an H2"|New-MDHeader -Level 2| Should Be ("## This is an H2"+$newLine)
+        #TODO:
+        #@("This is an H1","This is an H2")|New-MDHeader -Level 3| Should Be @("### This is an H1"+$newLine,"### This is an H2"+$newLine)
     }
     It "-Text null or empty" {
         {New-MDHeader -Text $null } | Should Throw "The argument is null or empty."

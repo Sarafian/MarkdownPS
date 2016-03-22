@@ -39,16 +39,15 @@ Function New-MDHeader {
 
     Begin {
         $output=@()
-    }
-
-    Process {
         $prefix=""
         for($i=1; $i -le $Level; $i++)
         {
             $prefix+="#"
         }
+    }
 
-        $output+="$prefix $Text"
+    Process {
+        $output+="$prefix $Text"+[System.Environment]::NewLine
     }
 
     End {
