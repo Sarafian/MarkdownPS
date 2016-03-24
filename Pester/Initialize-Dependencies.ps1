@@ -7,14 +7,16 @@ try
 
         $url='https://raw.githubusercontent.com/ishu3101/PSMarkdown/master/ConvertTo-Markdown.ps1'
         $output = Join-Path $env:TEMP "ConvertTo-Markdown.ps1"
-        Write-Verbose "Downloading $url to $output"
+        Write-Host "Downloading $url to $output"
 
         $wc = New-Object System.Net.WebClient
         $wc.DownloadFile($url, $output)
 
-        Write-Verbose "Importing $output"
+        Write-Host "Importing $output"
 
         . $output
+
+        Get-Command ConvertTo-Markdown
     }
 }
 catch

@@ -1,6 +1,6 @@
 Param (
     [Parameter(
-        Mandatory = $False
+        Mandatory = $true
     )]
     [ValidateNotNullOrEmpty()]
     [string]$NuGetApiKey
@@ -13,5 +13,5 @@ if($LASTEXITCODE -ne 0)
     exit -1
 }
 & "$PSScriptRoot\PreparePSD1AndNuSpec.ps1"
-#Publish-Module -Name MarkdownPS -NuGetApiKey $NuGetApiKey
+Publish-Module -Name MarkdownPS -NuGetApiKey $NuGetApiKey
 
