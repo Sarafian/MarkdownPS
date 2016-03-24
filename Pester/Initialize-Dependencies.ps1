@@ -24,5 +24,6 @@ if(-not (Get-Command ConvertTo-Markdown -ErrorAction SilentlyContinue)) {
     Write-Verbose "Writing $psm1Path"
     ". $PSScriptRoot\ConvertTo-Markdown.ps1" | Out-File $psm1Path
 
+    Get-Command ConvertTo-Markdown
 }
 
