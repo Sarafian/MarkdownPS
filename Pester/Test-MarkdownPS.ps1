@@ -10,8 +10,11 @@ Param (
     [string]$OutputPath=$null
 )
 
+& "$PSScriptRoot\Initialize-Dependencies.ps1" 
 & "$PSScriptRoot\Initialize-Pester.ps1"
-& "$PSScriptRoot\Initialize-Dependencies.ps1"
+
+$env:PSModulePath -split ';'
+
 
 $testPath=Resolve-Path "$PSScriptRoot\..\Modules\MarkdownPS"
 

@@ -1,28 +1,27 @@
 # When ConvertTo-Markdown commandlet is not available
 # Download and import
-try
-{
-    if(-not (Get-Command ConvertTo-Markdown -ErrorAction SilentlyContinue)) {
-        Write-Warning "ConvertTo-Markdown commandlet not found"
+$VerbosePreference="Continue"
 
-        $url='https://raw.githubusercontent.com/ishu3101/PSMarkdown/master/ConvertTo-Markdown.ps1'
-        $output = Join-Path $env:TEMP "ConvertTo-Markdown.ps1"
-        Write-Host "Downloading $url to $output"
+if(-not (Get-Command ConvertTo-Markdown -ErrorAction SilentlyContinue)) {
+    Write-Warning "ConvertTo-Markdown commandlet not found"
 
-        $wc = New-Object System.Net.WebClient
-        $wc.DownloadFile($url, $output)
-
-        Write-Host "Importing $output"
-
-        . $output
-
-        Get-Command ConvertTo-Markdown
+    $modulePath=Join-Path $env:TEMP "PSMarkdown" |Join-Path -ChildPath "Modules"
+    if(-not (Test-Path $modulePath))
+    {
+        New-Item $modulePath -ItemType Directory
     }
-}
-catch
-{
-    Write-Error $_
-    exit -1
-}
+    $wc = New-Object System.Net.WebClient
 
+    $url='https://raw.githubusercontent.com/ishu3101/PSMarkdown/master/ConvertTo-Markdown.ps1'
+    $ps1Path = Join-Path $modulePath "ConvertTo-Markdown.ps1"
+    Write-Verbose "Downloading $url to $ps1Path"
+    $wc.DownloadFile($url, $ps1Path)
+
+    $psm1Path=Join-Path $modulePath "PSMarkdown.psm1"
+    Write-Verbose "Writing $psm1Path"
+    ". $PSScriptRoot\ConvertTo-Markdown.ps1" | Out-File $psm1Path
+
+    Write-Verbose "Add $modulePath modules directory to PSModulePath"
+    $env:PSModulePath+=";$modulePath"
+}
 
