@@ -15,8 +15,6 @@ Param (
 $testPath=Resolve-Path "$PSScriptRoot\..\Modules\MarkdownPS"
 
 if($OutputFormat) {
-    $parms["OutputFormat"]="$OutputFormat"
-
     $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".").Replace(".ps1", "")
     if($OutputPath -and ($OutputPath -ne ""))
     {
