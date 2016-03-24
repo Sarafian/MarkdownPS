@@ -41,7 +41,7 @@ Function New-MDHeader {
     )
 
     Begin {
-        $output=@()
+        $output=""
         $prefix=""
         for($i=1; $i -le $Level; $i++)
         {
@@ -50,6 +50,10 @@ Function New-MDHeader {
     }
 
     Process {
+        if($output -ne "")
+        {
+            $output+=[System.Environment]::NewLine
+        }
         $output+="$prefix $Text"
     }
 

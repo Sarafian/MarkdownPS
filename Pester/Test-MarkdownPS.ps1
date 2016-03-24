@@ -9,8 +9,7 @@ Param (
     )]
     [string]$OutputPath=$null
 )
-#$OutputPath="C:\Portable"
-#$OutputFormat="NUnitXml"
+
 & "$PSScriptRoot\Initialize-Pester.ps1"
 
 $testPath=Resolve-Path "$PSScriptRoot\..\Modules\MarkdownPS"
