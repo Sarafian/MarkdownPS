@@ -4,8 +4,11 @@ $VerbosePreference="Continue"
 
 if(-not (Get-Command ConvertTo-Markdown -ErrorAction SilentlyContinue)) {
     Write-Warning "ConvertTo-Markdown commandlet not found"
+    $psModulePaths=$env:PSModulePath -split ';'
+    $targetPath=$psModulePaths[$psModulePaths.Length-1]
+    Write-Verbose "Creating module structure in Downloading $targetPath"
 
-    $modulePath=Join-Path $env:TEMP "PSMarkdown" |Join-Path -ChildPath "Modules"
+    $modulePath=Join-Path $env:TEMP "Modules" |Join-Path -ChildPath "PSMarkdown"
     if(-not (Test-Path $modulePath))
     {
         New-Item $modulePath -ItemType Directory
