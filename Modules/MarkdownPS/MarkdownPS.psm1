@@ -1,12 +1,18 @@
-. $PSScriptRoot\New-MDHeader.ps1              
-. $PSScriptRoot\New-MDParagraph.ps1           
-. $PSScriptRoot\New-MDCharacterStyle.ps1      
-. $PSScriptRoot\New-MDLink.ps1                
-. $PSScriptRoot\New-MDList.ps1                
-. $PSScriptRoot\New-MDQuote.ps1               
-. $PSScriptRoot\New-MDInlineCode.ps1          
-. $PSScriptRoot\New-MDCode.ps1                
-. $PSScriptRoot\New-MDImage.ps1               
-. $PSScriptRoot\New-MDTable.ps1               
+$names=(
+    "New-MDHeader",
+    "New-MDParagraph",
+    "New-MDCharacterStyle",
+    "New-MDLink",          
+    "New-MDList",          
+    "New-MDQuote",         
+    "New-MDInlineCode",    
+    "New-MDCode",          
+    "New-MDImage",         
+    "New-MDTable"
+)
+
+$names | ForEach-Object {. $PSScriptRoot\$_.ps1 }
+
+Export-ModuleMember $names
 
 

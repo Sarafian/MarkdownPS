@@ -1,16 +1,9 @@
-﻿$major=0
-$minor=0
-$patch=1
+﻿& "$PSScriptRoot\..\ISEScripts\Reset-Module.ps1"
 
-$date=Get-Date
-<#Semantic version doesn't work yet when Install-Package
-$prerelease="alpha"
-$build=[string](1200 * ($date.Year -2015)+$date.Month*100+$date.Day)+"-"+$date.ToString("HHmmss")
-$semVersion="$major.$minor.$patch-$prerelease-$build"
-#>
+$exportedNames=Get-Command -Module MarkDownPS | Select-Object -ExcludeProperty Name
 
-$build=[string](1200 * ($date.Year -2015)+$date.Month*100+$date.Day)+$date.ToString("HHmmss")
-$semVersion="$major.$minor.$build.$patch"
+. "$PSScriptRoot\Version.ps1"
+$semVersion=Get-Version
 
 $author="Alex Sarafian"
 $company=""
@@ -52,9 +45,29 @@ foreach($module in $modules)
     $psd1Path=Join-Path $module.FullName $psd1Name
     $nuspecPath=Join-Path $module.FullName $nuspecName
 
-    $guid=[guid]::NewGuid()|Select-Object -ExpandProperty Guid
-    New-ModuleManifest -RootModule $psm1Name -CompanyName "SDL Plc" -Description $description -Guid $guid -ModuleVersion $semVersion -Path $psd1Path -RequiredModules @{ModuleName="PSMarkdown";ModuleVersion="1.1"}
+    $guid="c1e7cbac-9e47-4906-8281-5f16471d7ccd"
+    $hash=@{
+        "Author"=$author;
+        "Copyright"=$cop;
+        "RootModule"=$psm1Name;
+        "Description"=$description;
+        "Guid"=$guid;
+        "ModuleVersion"=$semVersion;
+        "Path"=$psd1Path;
+        "RequiredModules"=@{ModuleName="PSMarkdown";ModuleVersion="1.1"};
+        "Tags"=@('Markdown', 'Tools');
+        "LicenseUri"='https://github.com/Sarafian/MarkdownPS/blob/master/LICENSE';
+        "ProjectUri"= 'https://github.com/Sarafian/MarkdownPS/';
+        "IconUri" ='https://github.com/dcurtis/markdown-mark/blob/master/png/66x40-solid.png';
+        "ReleaseNotes"= 'Initial Release on Powershell Gallery';
+        "CmdletsToExport" = $exportedNames;
+        "FunctionsToExport" = $exportedNames;
+        "PowerShellHostVersion"="4.0"
+    }
+    New-ModuleManifest  @hash 
     $nuspec=$ExecutionContext.InvokeCommand.ExpandString($nuspecTemplate)
     $nuspec|Out-File $nuspecPath -Force
 }
 Pop-Location -stackname $stackName
+
+

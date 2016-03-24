@@ -27,9 +27,9 @@ if($OutputFormat) {
         $outputFile="$PSScriptRoot\$sut.xml"
     }
     
-    Invoke-Pester -CodeCoverage "*.ps1" -Path $testPath -OutputFormat NUnitXml -OutputFile $outputFile
+    Invoke-Pester -CodeCoverage "*.ps1" -Path $testPath -OutputFormat $OutputFormat -OutputFile $outputFile -PassThru
 }
 else {
-    Invoke-Pester -CodeCoverage "*.ps1" -Path $testPath
+    Invoke-Pester -CodeCoverage "*.ps1" -Path $testPath -PassThru
 }
 

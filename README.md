@@ -1,5 +1,7 @@
 # MarkdownPS
-A powershell module to render markdown files
+A powershell module to render markdown files. 
+
+[MarkdownPS](https://www.powershellgallery.com/packages/MarkdownPS/) on powershell gallery.
 
 # Commandlets
 
