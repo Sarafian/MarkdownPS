@@ -6,9 +6,9 @@ if(-not (Get-Command ConvertTo-Markdown -ErrorAction SilentlyContinue)) {
     Write-Warning "ConvertTo-Markdown commandlet not found"
     $psModulePaths=$env:PSModulePath -split ';'
     $targetPath=$psModulePaths[$psModulePaths.Length-1]
-    Write-Verbose "Creating module structure in Downloading $targetPath"
+    Write-Verbose "Creating module structure in $targetPath"
 
-    $modulePath=Join-Path $env:TEMP "Modules" |Join-Path -ChildPath "PSMarkdown"
+    $modulePath=Join-Path $targetPath "PSMarkdown"
     if(-not (Test-Path $modulePath))
     {
         New-Item $modulePath -ItemType Directory
@@ -24,7 +24,5 @@ if(-not (Get-Command ConvertTo-Markdown -ErrorAction SilentlyContinue)) {
     Write-Verbose "Writing $psm1Path"
     ". $PSScriptRoot\ConvertTo-Markdown.ps1" | Out-File $psm1Path
 
-    Write-Verbose "Add $modulePath modules directory to PSModulePath"
-    $env:PSModulePath+=";$modulePath"
 }
 
