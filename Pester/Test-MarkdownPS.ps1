@@ -11,6 +11,7 @@ Param (
 )
 
 & "$PSScriptRoot\Initialize-Pester.ps1"
+& "$PSScriptRoot\Initialize-Dependencies.ps1"
 
 $testPath=Resolve-Path "$PSScriptRoot\..\Modules\MarkdownPS"
 
