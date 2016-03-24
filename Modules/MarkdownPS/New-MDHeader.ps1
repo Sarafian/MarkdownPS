@@ -24,7 +24,6 @@ Function New-MDHeader {
             Mandatory = $true,
             Position = 0,
             ValueFromPipeline = $true
-            
         )]
         [ValidateNotNullOrEmpty()]
         [string]$Text,
@@ -33,8 +32,12 @@ Function New-MDHeader {
         )]
         [ValidateNotNull()]
         [ValidateRange(1,6)]
-        [int]$Level=1
-
+        [int]$Level=1,
+        [Parameter(
+            ValueFromPipeline = $false
+        )]
+        [ValidateNotNullOrEmpty()]
+        [switch]$NoNewLine=$false
     )
 
     Begin {
@@ -47,10 +50,14 @@ Function New-MDHeader {
     }
 
     Process {
-        $output+="$prefix $Text"+[System.Environment]::NewLine
+        $output+="$prefix $Text"
     }
 
     End {
+        if(-not $NoNewLine)
+        {
+            $output+=[System.Environment]::NewLine
+        }
         $output
     }
 }

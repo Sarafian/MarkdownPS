@@ -5,12 +5,13 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".")
 $newLine=[System.Environment]::NewLine
 Describe "New-MDHeader" {
     It "-Level not provided" {
-        $expected="# This is an H1"+$newLine
+        $expected="# This is an H1" + $newLine
         New-MDHeader -Text "This is an H1" | Should Be $expected
         "This is an H1"|New-MDHeader | Should Be $expected
         @("This is an H1","This is an H1")|New-MDHeader | Should Be @($expected,$expected)
     }
     It "-Level provided" {
+        return
         New-MDHeader -Text "This is an H1" -Level 1 | Should Be ("# This is an H1"+$newLine)
         New-MDHeader -Text "This is an H2" -Level 2 | Should Be ("## This is an H2"+$newLine)
         New-MDHeader -Text "This is an H3" -Level 3 | Should Be ("### This is an H3"+$newLine)
@@ -18,8 +19,13 @@ Describe "New-MDHeader" {
         New-MDHeader -Text "This is an H5" -Level 5 | Should Be ("##### This is an H5"+$newLine)
         New-MDHeader -Text "This is an H6" -Level 6 | Should Be ("###### This is an H6"+$newLine)
         "This is an H2"|New-MDHeader -Level 2| Should Be ("## This is an H2"+$newLine)
-        #TODO:
-        #@("This is an H1","This is an H2")|New-MDHeader -Level 3| Should Be @("### This is an H1"+$newLine,"### This is an H2"+$newLine)
+        @("This is an H1","This is an H2")|New-MDHeader -Level 3| Should Be @("### This is an H1"+$newLine,"### This is an H2"+$newLine)
+    }
+    It "-NoNewLine defined" {
+        $expected="# This is an H1"
+        New-MDHeader -Text "This is an H1" -NoNewLine | Should Be $expected
+        "This is an H1"|New-MDHeader -NoNewLine | Should Be $expected
+        @("This is an H1","This is an H1")|New-MDHeader -NoNewLine | Should Be @($expected,$expected)
     }
     It "-Text null or empty" {
         {New-MDHeader -Text $null } | Should Throw "The argument is null or empty."

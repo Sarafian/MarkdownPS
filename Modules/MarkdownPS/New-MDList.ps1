@@ -19,7 +19,12 @@
             Mandatory = $true
         )]
         [ValidateSet("Unordered","Ordered")]
-        [string]$Style
+        [string]$Style,
+        [Parameter(
+            ValueFromPipeline = $false
+        )]
+        [ValidateNotNullOrEmpty()]
+        [switch]$NoNewLine=$false
     )
 
     Begin {
@@ -51,11 +56,15 @@
                     $output+="$prefix$counter. "+$_+[System.Environment]::NewLine
                     $counter++
                 }
-            } 
+            }
         }
     }
 
     End {
+        if(-not $NoNewLine)
+        {
+            $output+=[System.Environment]::NewLine
+        } 
         $output
     }
 }

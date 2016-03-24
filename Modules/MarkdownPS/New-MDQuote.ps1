@@ -14,7 +14,12 @@
         )]
         [ValidateNotNull()]
         [ValidateRange(1,3)]
-        [int]$Level=1
+        [int]$Level=1,
+        [Parameter(
+            ValueFromPipeline = $false
+        )]
+        [ValidateNotNullOrEmpty()]
+        [switch]$NoNewLine=$false
     )
 
     Begin {
@@ -37,6 +42,10 @@
     }
 
     End {
+        if(-not $NoNewLine)
+        {
+            $output+=[System.Environment]::NewLine
+        }
         $output
     }
 }

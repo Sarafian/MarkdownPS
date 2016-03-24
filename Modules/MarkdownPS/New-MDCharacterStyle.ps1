@@ -15,7 +15,6 @@
         )]
         [ValidateSet("Bold","Italic","StrikeThrough")]
         [string]$Style
-
     )
 
     Begin {

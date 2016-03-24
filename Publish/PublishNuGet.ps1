@@ -35,10 +35,10 @@ foreach($module in $modules)
     $nugetArgs=@(
         "push",
         $expectedNuGetPath,
-        "Source",
+        "-Source",
         $nugetUri
     )
-    if(-not $ApiKey)
+    if($ApiKey)
     {
         $nugetArgs+=@(
             "ApiKey",

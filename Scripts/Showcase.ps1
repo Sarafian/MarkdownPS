@@ -1,5 +1,5 @@
 # Try to render some markdown as described here
-# https://confluence.atlassian.com/bitbucketserver/markdown-syntax-guide-776639995.html
+# https://help.github.com/articles/basic-writing-and-formatting-syntax/
 
 # Verify here
 # https://jbt.github.io/markdown-editor/
@@ -8,93 +8,83 @@
 
 $markdown=""
 
-$markdown+=New-MDHeader "This is an H1"
-$markdown+=New-MDParagraph
-$markdown+=New-MDHeader "This is an H2" -Level 2
-$markdown+=New-MDParagraph
-$markdown+="This is an H6"|New-MDHeader  -Level 6
-$markdown+=New-MDParagraph
+#region headers
 
+$markdown+=New-MDHeader "The largest heading"
+$markdown+=New-MDHeader "The second largest heading" -Level 2
+$markdown+="The smallest heading"|New-MDHeader  -Level 6
+
+#endregion
+
+#region paragraphs
 $lines=@(
     "Paragraphs are separated by empty lines. Within a paragraph it's possible to have a line break,"
     "simply press <return> for a new line."
 )
-$markdown+=$lines|New-MDParagraph
-$markdown+=New-MDParagraph
+$markdown+=New-MDParagraph -Lines $lines
 
 $lines=@(
     "For example,"
     "like this."
 )
-$markdown+=New-MDParagraph -Lines $lines
-$markdown+=New-MDParagraph
 
-#region 
-#TODO Somehow the new line is removed
+$markdown+=New-MDParagraph -Lines $lines
+
+#endregion
+
+#region CharacterStyle
 $markdown+=New-MDCharacterStyle -Text "Italic characters" -Style Italic
 $markdown+=New-MDParagraph
-
 $markdown+=New-MDCharacterStyle -Text "bold characters" -Style Bold
 $markdown+=New-MDParagraph
-
 $markdown+=New-MDCharacterStyle -Text "strikethrough text" -Style StrikeThrough
+$markdown+=New-MDParagraph
+$markdown+="All Styles" | New-MDCharacterStyle -Style Bold| New-MDCharacterStyle -Style Italic | New-MDCharacterStyle -Style StrikeThrough
 $markdown+=New-MDParagraph
 #endregion
 
+#region Lists
 $markdown+=New-MDParagraph
 $lines=@(
-    "Item 1"
-    "Item 2"
-    "Item 3"
+    "George Washington",
+    "John Adams",
+    "Thomas Jefferson"
 )
 $markdown+=New-MDList -Lines $lines -Style Unordered
-$lines=@(
-    "Item 3a"
-    "Item 3b"
-    "Item 3c"
-)
-$markdown+=$lines|New-MDList -Level 2 -Style Unordered
 
-$markdown+=New-MDParagraph
 $lines=@(
-    "Step 1"
-    "Step 2"
-    "Step 3"
+    "James Madison",
+    "James Monroe",
+    "John Quincy Adams"
 )
 $markdown+=New-MDList -Lines $lines -Style Ordered
-$lines=@(
-    "Step 3.1"
-    "Step 3.2"
-    "Step 3.3"
-)
-$markdown+=$lines|New-MDList -Level 2 -Style Ordered
 
-$markdown+=New-MDParagraph
-$lines=@(
-    "Step 1"
-    "Step 2"
-    "Step 3"
-)
-$markdown+=New-MDList -Lines $lines -Style Unordered
-$lines=@(
-    "Item 3a"
-    "Item 3b"
-    "Item 3c"
-)
-$markdown+=$lines|New-MDList -Level 2 -Style Ordered
+$markdown+=New-MDList -Lines "Make my changes" -Style Ordered -NoNewLine
+$markdown+=New-MDList -Lines @("Fix bug","Improve formatting") -Level 2 -Style Ordered -NoNewLine
+$markdown+=New-MDList -Lines "Make the headings bigger" -Level 3 -Style Unordered -NoNewLine
+$markdown+=New-MDList -Lines "Push my commits to GitHub" -Style Ordered -NoNewLine
+$markdown+=New-MDList -Lines "Open a pull request" -Style Ordered -NoNewLine
+$markdown+=New-MDList -Lines @("Describe my changes","Mention all the members of my team") -Level 2 -Style Ordered -NoNewLine
+$markdown+=New-MDList -Lines "Ask for feedback" -Level 3 -Style Unordered
 
-$markdown+=New-MDParagraph -Lines "Introducing my quote:"
-$markdown+=New-MDParagraph
+#endregion
+
+#region Quote
+$markdown+=New-MDParagraph -Lines "In the words of Abraham Lincoln:"
 $lines=@(
-    "Neque porro quisquam est qui"
-    "dolorem ipsum quia dolor sit amet, "
-    "consectetur, adipisci velit..."
+    "Pardon my French"
 )
 $markdown+=New-MDQuote -Lines $lines
 
-#region 
-#TODO Somehow the new line is removed
+$markdown+=New-MDParagraph -Lines "Multi line quote"
+$lines=@(
+    "Line 1"
+    "Line 2"
+)
+$markdown+=New-MDQuote -Lines $lines
+#endregion
 
+#region 
 $markdown+="This is "+(New-MDLink -Text "an example" -Link "http://www.example.com/")+" inline link."
 $markdown+=New-MDParagraph
 
@@ -105,6 +95,31 @@ $markdown+=New-MDImage -Link "http://www.iana.org/_img/2013.1/iana-logo-header.s
 $markdown+=New-MDParagraph
 $markdown+=New-MDImage -Link "http://www.iana.org/_img/2013.1/iana-logo-header.svg" -AltText "Alt text" -Title "Optional title attribute"
 $markdown+=New-MDParagraph
+#endregion
+
+#region Code quote
+$markdown+="Use "+(New-MDInlineCode -Text "git status") + "to list all new or modified files that haven't yet been committed."
+$markdown+=New-MDParagraph
+
+$markdown+=New-MDParagraph -Lines "Some basic Git commands are:"
+$lines=@(
+    "git status",
+    "git add",
+    "git commit"
+)
+$markdown+=New-MDCode -Lines $lines
+
+$lines=@(
+    '<?xml version="1.0" encoding="UTF-8"?>'
+    "<node />"
+)
+$markdown+=New-MDCode -Lines $lines -Style "xml"
+
+
+#endregion
+
+#region Tables
+$markdown+=(Get-Command -Module MarkdownPS | Select-Object Name,ModuleName |ConvertTo-Markdown) -join [System.Environment]::NewLine
 #endregion
 
 $markdown
