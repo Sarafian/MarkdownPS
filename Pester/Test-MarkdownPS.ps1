@@ -26,9 +26,17 @@ if($OutputFormat) {
         $outputFile="$PSScriptRoot\$sut.xml"
     }
     
-    Invoke-Pester -CodeCoverage "*.ps1" -Path $testPath -OutputFormat $OutputFormat -OutputFile $outputFile -PassThru
+    $pesterResult=Invoke-Pester -CodeCoverage "*.ps1" -Path $testPath -OutputFormat $OutputFormat -OutputFile $outputFile -PassThru
 }
 else {
-    Invoke-Pester -CodeCoverage "*.ps1" -Path $testPath -PassThru
+    $pesterResult=Invoke-Pester -CodeCoverage "*.ps1" -Path $testPath -PassThru
 }
+
+$pesterResult
+if($pesterResult.FailedCount -gt 0)
+{
+    Write-Error "Test-MarkdownPS.ps1 failed"
+    exit $pesterResult.FailedCount
+}
+exit 0
 

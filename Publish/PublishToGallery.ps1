@@ -1,17 +1,17 @@
 Param (
     [Parameter(
-        Mandatory = $true
+        Mandatory = $False
     )]
     [ValidateNotNullOrEmpty()]
     [string]$NuGetApiKey
 )
 
-$pesterResult=& "$PSScriptRoot\..\Pester\Test-MarkdownPS.ps1"
-if($pesterResult.FailedCount -gt 0)
+& "$PSScriptRoot\..\Pester\Test-MarkdownPS.ps1"
+if($LASTEXITCODE -ne 0)
 {
-    Write-Error "Test-MarkdownPS.ps1 tests failed"
+    Write-Error "Stopping"
     exit -1
 }
 & "$PSScriptRoot\PreparePSD1AndNuSpec.ps1"
-Publish-Module -Name MarkdownPS -NuGetApiKey $NuGetApiKey
+#Publish-Module -Name MarkdownPS -NuGetApiKey $NuGetApiKey
 
