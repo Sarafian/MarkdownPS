@@ -44,6 +44,7 @@ foreach($module in $modules)
     $nuspecName=$name+".nuspec"
     $psd1Path=Join-Path $module.FullName $psd1Name
     $nuspecPath=Join-Path $module.FullName $nuspecName
+    $PSVersionTable
 
     $guid="c1e7cbac-9e47-4906-8281-5f16471d7ccd"
     $hash=@{
@@ -59,15 +60,10 @@ foreach($module in $modules)
         "LicenseUri"='https://github.com/Sarafian/MarkdownPS/blob/master/LICENSE';
         "ProjectUri"= 'https://github.com/Sarafian/MarkdownPS/';
         "IconUri" ='https://github.com/dcurtis/markdown-mark/blob/master/png/66x40-solid.png';
-        #"ReleaseNotes"= 'Initial Release on Powershell Gallery';
+        "ReleaseNotes"= 'Initial Release on Powershell Gallery';
         "CmdletsToExport" = $exportedNames;
         "FunctionsToExport" = $exportedNames;
         "PowerShellHostVersion"="4.0"
-    }
-    $supportsReleaseNotes=(Get-Command New-ModuleManifest).Parameters.ContainsKey("ReleaseNotes")
-    if($supportsReleaseNotes)
-    {
-        $hash+=@{"ReleaseNotes"= 'Initial Release on Powershell Gallery'}
     }
 
     New-ModuleManifest  @hash 
