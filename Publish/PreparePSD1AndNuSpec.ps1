@@ -44,7 +44,6 @@ foreach($module in $modules)
     $nuspecName=$name+".nuspec"
     $psd1Path=Join-Path $module.FullName $psd1Name
     $nuspecPath=Join-Path $module.FullName $nuspecName
-    $PSVersionTable
 
     $guid="c1e7cbac-9e47-4906-8281-5f16471d7ccd"
     $hash=@{
