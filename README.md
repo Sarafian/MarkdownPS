@@ -1,6 +1,11 @@
 # MarkdownPS
 A powershell module to render markdown files. 
 
+| Branch | Status
+| ---------- | ---------
+| **master** | ![masterstatus](https://asarafian.visualstudio.com/DefaultCollection/_apis/public/build/definitions/9411077a-da68-4370-9d62-7fa8ec77dfa9/9/badge)
+| **develop** | ![masterstatus](https://asarafian.visualstudio.com/DefaultCollection/_apis/public/build/definitions/9411077a-da68-4370-9d62-7fa8ec77dfa9/8/badge)
+
 [MarkdownPS](https://www.powershellgallery.com/packages/MarkdownPS/) on powershell gallery.
 
 # Commandlets
