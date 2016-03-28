@@ -59,11 +59,17 @@ foreach($module in $modules)
         "LicenseUri"='https://github.com/Sarafian/MarkdownPS/blob/master/LICENSE';
         "ProjectUri"= 'https://github.com/Sarafian/MarkdownPS/';
         "IconUri" ='https://github.com/dcurtis/markdown-mark/blob/master/png/66x40-solid.png';
-        "ReleaseNotes"= 'Initial Release on Powershell Gallery';
+        #"ReleaseNotes"= 'Initial Release on Powershell Gallery';
         "CmdletsToExport" = $exportedNames;
         "FunctionsToExport" = $exportedNames;
         "PowerShellHostVersion"="4.0"
     }
+    $supportsReleaseNotes=(Get-Command New-ModuleManifest).Parameters.ContainsKey("ReleaseNotes")
+    if($supportsReleaseNotes)
+    {
+        $hash+=@{"ReleaseNotes"= 'Initial Release on Powershell Gallery'}
+    }
+
     New-ModuleManifest  @hash 
     $nuspec=$ExecutionContext.InvokeCommand.ExpandString($nuspecTemplate)
     $nuspec|Out-File $nuspecPath -Force
