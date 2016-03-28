@@ -6,7 +6,7 @@ Param (
     [string]$NuGetApiKey
 )
 
-& "$PSScriptRoot\..\Pester\Test-MarkdownPS.ps1"
+& "$PSScriptRoot\..\Pester\Test-All.ps1"
 if($LASTEXITCODE -ne 0)
 {
     Write-Error "Stopping"
