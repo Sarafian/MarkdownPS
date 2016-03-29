@@ -1,20 +1,43 @@
 ﻿<#
-.Synopsis
-   Creates a new header line.
-.Description
-   The New-MDHeader function creates a new header line for markdown
-.EXAMPLE
-   New-MDHeader -Text "H"
+    .SYNOPSIS
+        This commandlet output header in markdown syntax
 
-   This command outputs # H 
-.EXAMPLE
-   "H"|New-MDHeader
+    .DESCRIPTION
+        This commandlet output header in markdown syntax by adding a '# '
 
-   This command outputs # H 
-.EXAMPLE
-   New-MDHeader -Text "H" -Level 2
+    .PARAMETER  Text
+        Any text
 
-   This command outputs ## H 
+    .PARAMETER  Level
+        The level of header
+
+    .PARAMETER NoNewLine
+        Controls if a new line is added at the end of the output
+
+    .EXAMPLE
+        New-MDHeader -Text "This is an H1"
+        "This is an H1" | New-MDHeader -Text
+        
+        # This is an H1
+
+    .EXAMPLE
+        New-MDHeader -Text "This is an H2" -Level 2
+        "This is an H2" | New-MDHeader -Text -Level 2
+        
+        ## This is an H2
+
+    .INPUTS
+        An array of lines
+
+    .OUTPUTS
+        Each line with a '# ' in the front
+
+    .NOTES
+        Use the -NoNewLine parameter when you don't want the next markdown content to be separated.
+
+    .LINK
+        New-MDParagraph
+        https://help.github.com/articles/basic-writing-and-formatting-syntax/
 #>
 Function New-MDHeader {
     [CmdletBinding()]
