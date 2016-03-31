@@ -1,4 +1,52 @@
-﻿function New-MDQuote {
+﻿<#
+    .SYNOPSIS
+        This commandlet output quote in markdown syntax
+
+    .DESCRIPTION
+        This commandlet output quote in markdown syntax by adding a '> ' in front of each line
+
+    .PARAMETER  Lines
+        An array of lines to quote in markdown
+
+    .PARAMETER  Level
+        The level of quote
+
+    .PARAMETER NoNewLine
+        Controls if a new line is added at the end of the output
+
+    .EXAMPLE
+        New-MDQuote -Lines "Line 1"
+
+        > Line 1
+
+    .EXAMPLE
+        New-MDQuote -Lines @("Line 1","Line 2")
+
+        > Line 1
+        > 
+        > Line 2
+
+    .EXAMPLE
+        @("Line 1","Line 2") | New-MDQuote -Level 2
+
+        >> Line 1
+        >>
+        >> Line 2
+
+    .INPUTS
+        An array of lines
+
+    .OUTPUTS
+        Each line with a '> ' in the front
+
+    .NOTES
+        Use the -NoNewLine parameter when you don't want the next markdown content to be separated.
+
+    .LINK
+        New-MDCode
+        https://help.github.com/articles/basic-writing-and-formatting-syntax/
+#>
+function New-MDQuote {
 [CmdletBinding()]
     [OutputType([string])]
     Param (

@@ -243,13 +243,6 @@ $markdown
 	MarkdownPS | New-MDTable         
 
 
-# Things to do
-
-- Automate the build and publish
-- Automate publish to gallery
-- Provide help for the commandlets
-- Add badges 
-
 
 
 
