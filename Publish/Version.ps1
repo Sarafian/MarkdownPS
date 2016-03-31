@@ -1,9 +1,9 @@
 function Get-Version {
     $major=1
-    $minor=0
+    $minor=1
     $patch=0
 
-    #return "$major.$minor"    
+    return "$major.$minor"    
 
     $date=(Get-Date).ToUniversalTime()
     <#Semantic version doesn't work yet when Install-Package
