@@ -41,7 +41,7 @@ function New-MDTable {
             ValueFromPipeline = $true
             
         )]
-        $Object,
+        [PSObject[]]$Object,
         [Parameter(
             ValueFromPipeline = $false
         )]
@@ -54,7 +54,14 @@ function New-MDTable {
     }
 
     Process {
-        $output+=($Object |ConvertTo-Markdown) -join [System.Environment]::NewLine
+        if($output -eq "")
+        {
+            $output+=($Object |ConvertTo-Markdown) -join [System.Environment]::NewLine
+        }
+        else
+        {
+            Throw "Piping array of objects is not supported"
+        }
     }
 
     End {
