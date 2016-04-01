@@ -46,5 +46,8 @@ Describe "New-MDTable" {
             ((New-MDTable -Object $object -NoNewLine) -split [System.Environment]::NewLine ).Length| Should Be $expected
             (($object | New-MDTable -NoNewLine) -split [System.Environment]::NewLine ).Length| Should Be $expected
         }
+        It "Piping array of PSObject" {
+            {@($object,$object) | New-MDTable } | Should Throw "Piping array of objects is not supported"
+        }
     }
 }
