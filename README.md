@@ -21,10 +21,6 @@ A powershell module to render markdown files.
 - New-MDQuote
 - New-MDTable
 
-# Module dependencies
-
-The `New-MDTable` depends on [PSMarkdown](https://github.com/ishu3101/PSMarkdown).
-
 # Example script
 
 ## The showcase script

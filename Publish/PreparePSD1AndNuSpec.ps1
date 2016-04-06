@@ -54,7 +54,6 @@ foreach($module in $modules)
         "Guid"=$guid;
         "ModuleVersion"=$semVersion;
         "Path"=$psd1Path;
-        "RequiredModules"=@{ModuleName="PSMarkdown";ModuleVersion="1.1"};
         "Tags"=@('Markdown', 'Tools');
         "LicenseUri"='https://github.com/Sarafian/MarkdownPS/blob/master/LICENSE';
         "ProjectUri"= 'https://github.com/Sarafian/MarkdownPS/';

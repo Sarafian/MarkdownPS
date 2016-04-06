@@ -39,9 +39,12 @@ function New-MDTable {
             Mandatory = $true,
             Position = 0,
             ValueFromPipeline = $true
-            
         )]
         [PSObject[]]$Object,
+        [Parameter(
+            Mandatory = $false
+        )]
+        $Columns=$null,
         [Parameter(
             ValueFromPipeline = $false
         )]
@@ -50,21 +53,75 @@ function New-MDTable {
     )
 
     Begin {
+        $items = @()
+        $maxColumnLength=0
         $output=""
     }
 
     Process {
-        if($output -eq "")
+        ForEach($item in $Object) 
         {
-            $output+=($Object |ConvertTo-Markdown) -join [System.Environment]::NewLine
+            $items += $item
         }
-        else
+        if(-not $Columns)
         {
-            Throw "Piping array of objects is not supported"
+            $Columns=@{}
+            ForEach($item in $Object) 
+            {
+                $item.PSObject.Properties | %{
+                    if(-not $Columns.ContainsKey($_.Name)){
+                        $Columns[$_.Name]=$null
+                    }
+                }
+            }
+        }
+        ForEach($item in $Object) {
+            $item.PSObject.Properties | %{
+                if($Columns.ContainsKey($_.Name) -and $_.Value -ne $null){
+                    $maxColumnLength=[Math]::Max($maxColumnLength, $_.Value.Length)
+                }
+            }
         }
     }
 
     End {
+        $lines=@()
+        $header = @()
+        ForEach($key in $Columns.Keys) {
+            $header += ('{0,-' + $maxColumnLength + '}') -f $key
+        }
+        $lines+='| '+($header -join ' | ')+' |'
+
+        $separator = @()
+        ForEach($key in $Columns.Keys) {
+            switch($Columns[$key]) {
+                "left-aligned" {
+                    $separator += ' '+'-' * $maxColumnLength+' '
+                }
+                "right-aligned" {
+                    $separator += ' '+'-' * $maxColumnLength+':'
+                }  
+                "center-aligned" {
+                    $separator += ':'+'-' * $maxColumnLength+':'
+                }
+                default {
+                    $separator += ' '+'-' * $maxColumnLength+' '
+                }  
+            }
+        }
+        $lines+='|'+($separator -join '|')+'|'
+
+        ForEach($item in $items) {
+            $values = @()
+            ForEach($key in $Columns.Keys) {
+                $values += ('{0,-' + $maxColumnLength + '}') -f $item.($key)
+            }
+            $lines+='| '+ ($values -join ' | ') + ' |'
+        }
+        $output+=$lines -join  [System.Environment]::NewLine
+
+
+
         if(-not $NoNewLine)
         {
             $output+=[System.Environment]::NewLine
