@@ -14,5 +14,5 @@ if($LASTEXITCODE -ne 0)
 }
 & "$PSScriptRoot\PreparePSD1.ps1"
 
-#Publish-Module -Path "$PSScriptRoot\..\Modules\MarkdownPS" -NuGetApiKey $NuGetApiKey 
+Publish-Module -Path "$PSScriptRoot\..\Modules\MarkdownPS" -NuGetApiKey $NuGetApiKey 
 
