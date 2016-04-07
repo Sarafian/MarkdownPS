@@ -19,32 +19,6 @@ $modulesToTest=@(
 $failedCount=0
 $modulesToTest | ForEach-Object {
     $testPath=Resolve-Path "$PSScriptRoot\..\Modules\$_"
-
-    <# This is an alternative to mocking the ConvertTo-Markdown. 
-    if($_ -eq "WithDependency")
-    {
-        $VerbosePreference="Continue"
-        $ps1Path=Resolve-Path "$PSScriptRoot\..\Modules\DemoPester\Test-DemoPester.ps1"
-        Write-Verbose "Importing $ps1Path"
-        . $ps1Path
-
-        if(-not (Get-Command ConvertTo-Markdown -ErrorAction SilentlyContinue)) {
-            Write-Warning "ConvertTo-Markdown commandlet not found"
-
-            $wc = New-Object System.Net.WebClient
-
-            $url='https://raw.githubusercontent.com/ishu3101/PSMarkdown/master/ConvertTo-Markdown.ps1'
-            $ps1Path = Join-Path $env:TEMP "ConvertTo-Markdown.ps1"
-            Write-Verbose "Downloading $url to $ps1Path"
-            $wc.DownloadFile($url, $ps1Path)
-
-            Write-Verbose "Importing $ps1Path"
-            . $ps1Path
-            Get-Command ConvertTo-Markdown
-        }
-        $VerbosePreference="SilentlyContinue"
-    }
-    #>
     
     if($OutputFormat) {
         $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".").Replace(".ps1", "")

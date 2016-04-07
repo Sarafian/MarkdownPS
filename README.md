@@ -21,10 +21,6 @@ A powershell module to render markdown files.
 - New-MDQuote
 - New-MDTable
 
-# Module dependencies
-
-The `New-MDTable` depends on [PSMarkdown](https://github.com/ishu3101/PSMarkdown).
-
 # Example script
 
 ## The showcase script
@@ -153,7 +149,10 @@ $markdown+=New-MDCode -Lines $lines -Style "xml"
 #endregion
 
 #region Tables
-$markdown+=(Get-Command -Module MarkdownPS | Select-Object Name,ModuleName |ConvertTo-Markdown) -join [System.Environment]::NewLine
+$markdown+=New-MDParagraph -Lines "Without aligned columns"
+$markdown+=Get-Command -Module MarkdownPS |Select-Object Name,CommandType,Version | New-MDTable
+$markdown+=New-MDParagraph -Lines "With aligned columns"
+$markdown+=Get-Command -Module MarkdownPS | New-MDTable -Columns ([ordered]@{Name="left";CommandType="center";Version="right"})
 #endregion
 
 $markdown
@@ -161,89 +160,100 @@ $markdown
 
 ## The output
 
-	# The largest heading 
-	## The second largest heading 
-	###### The smallest heading 
-	Paragraphs are separated by empty lines. Within a paragraph it's possible to have a line break,
-	simply press <return> for a new line.
-	
-	For example,
-	like this.
-	
-	*Italic characters*
-	
-	**bold characters**
-	
-	~~strikethrough text~~
-	
-	~~***All Styles***~~
-	
-	
-	
-	- George Washington
-	- John Adams
-	- Thomas Jefferson
-	
-	1. James Madison
-	2. James Monroe
-	3. John Quincy Adams
-	
-	1. Make my changes
-	   1. Fix bug
-	   2. Improve formatting
-	    - Make the headings bigger
-	1. Push my commits to GitHub
-	1. Open a pull request
-	   1. Describe my changes
-	   2. Mention all the members of my team
-	    - Ask for feedback
-	
-	In the words of Abraham Lincoln:
-	
-	> Pardon my French
-	
-	Multi line quote
-	
-	> Line 1
-	>
-	> Line 2
-	
-	This is [an example](http://www.example.com/) inline link.
-	
-	[This link](http://www.example.com/ "Title") has a title attribute.
-	
-	![Alt text](http://www.iana.org/_img/2013.1/iana-logo-header.svg)
-	
-	![Alt text](http://www.iana.org/_img/2013.1/iana-logo-header.svg "Optional title attribute")
-	
-	Use `git status`to list all new or modified files that haven't yet been committed.
-	
-	Some basic Git commands are:
-	
-	```
-	    git status
-	    git add
-	    git commit
-	```
-	```xml
-	    <?xml version="1.0" encoding="UTF-8"?>
-	    <node />
-	```
-	ModuleName | Name                
-	---------- | --------------------
-	MarkdownPS | New-MDCharacterStyle
-	MarkdownPS | New-MDCode          
-	MarkdownPS | New-MDHeader        
-	MarkdownPS | New-MDImage         
-	MarkdownPS | New-MDInlineCode    
-	MarkdownPS | New-MDLink          
-	MarkdownPS | New-MDList          
-	MarkdownPS | New-MDParagraph     
-	MarkdownPS | New-MDQuote         
-	MarkdownPS | New-MDTable         
-
-
-
-
-
+> # The largest heading
+> ## The second largest heading
+> ###### The smallest heading
+> Paragraphs are separated by empty lines. Within a paragraph it's possible to have a line break,
+> simply press <return> for a new line.
+> 
+> For example,
+> like this.
+> 
+> *Italic characters*
+> 
+> **bold characters**
+> 
+> ~~strikethrough text~~
+> 
+> ~~***All Styles***~~
+> 
+> 
+> 
+> - George Washington
+> - John Adams
+> - Thomas Jefferson
+> 
+> 1. James Madison
+> 2. James Monroe
+> 3. John Quincy Adams
+> 
+> 1. Make my changes
+> 1. Fix bug
+> 2. Improve formatting
+> - Make the headings bigger
+> 1. Push my commits to GitHub
+> 1. Open a pull request
+> 1. Describe my changes
+> 2. Mention all the members of my team
+> - Ask for feedback
+> 
+> In the words of Abraham Lincoln:
+> 
+> > Pardon my French
+> 
+> Multi line quote
+> 
+> > Line 1
+> >
+> > Line 2
+> 
+> This is [an example](http://www.example.com/) inline link.
+> 
+> [This link](http://www.example.com/ "Title") has a title attribute.
+> 
+> ![Alt text](http://www.iana.org/_img/2013.1/iana-logo-header.svg)
+> 
+> ![Alt text](http://www.iana.org/_img/2013.1/iana-logo-header.svg "Optional title attribute")
+> 
+> Use `git status`to list all new or modified files that haven't yet been committed.
+> 
+> Some basic Git commands are:
+> 
+> ```
+> git status
+> git add
+> git commit
+> ```
+> ```xml
+> <?xml version="1.0" encoding="UTF-8"?>
+> <node />
+> ```
+> Without aligned columns
+> 
+> | Name                 | CommandType          | Version              |
+> | -------------------- | -------------------- | -------------------- |
+> | New-MDCharacterStyle | Function             | 1.1                  |
+> | New-MDCode           | Function             | 1.1                  |
+> | New-MDHeader         | Function             | 1.1                  |
+> | New-MDImage          | Function             | 1.1                  |
+> | New-MDInlineCode     | Function             | 1.1                  |
+> | New-MDLink           | Function             | 1.1                  |
+> | New-MDList           | Function             | 1.1                  |
+> | New-MDParagraph      | Function             | 1.1                  |
+> | New-MDQuote          | Function             | 1.1                  |
+> | New-MDTable          | Function             | 1.1                  |
+> With aligned columns
+> 
+> | Name                 | CommandType          | Version              |
+> | -------------------- |:--------------------:| --------------------:|
+> | New-MDCharacterStyle | Function             | 1.1                  |
+> | New-MDCode           | Function             | 1.1                  |
+> | New-MDHeader         | Function             | 1.1                  |
+> | New-MDImage          | Function             | 1.1                  |
+> | New-MDInlineCode     | Function             | 1.1                  |
+> | New-MDLink           | Function             | 1.1                  |
+> | New-MDList           | Function             | 1.1                  |
+> | New-MDParagraph      | Function             | 1.1                  |
+> | New-MDQuote          | Function             | 1.1                  |
+> | New-MDTable          | Function             | 1.1                  |
 
