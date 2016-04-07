@@ -10,29 +10,7 @@ $company=""
 $copyright="(c) $($date.Year) $company. All rights reserved."
 $description="A module to help render Markdown from powershell"
 
-$nuspecTemplate='<?xml version="1.0"?>
-<package >
-  <metadata>
-    <id>$name</id>
-    <version>$semVersion</version>
-    <authors>$author</authors>
-    <owners>$company</owners>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description</description>
-    <!--<releaseNotes>Summary of changes made in this release of the package.</releaseNotes>-->
-    <copyright>$copyright</copyright>
-    <tags></tags>
-    <dependencies>
-    </dependencies>
-  </metadata>
-</package>
-'
-
-$stackName="PrepareAutomation"
-Push-Location $PSScriptRoot -stackname $stackName
-
-$modules=Get-ChildItem ..\Modules\
-
+$modules=Get-ChildItem "$PSScriptRoot\..\Modules\"
 
 foreach($module in $modules)
 {
@@ -41,9 +19,7 @@ foreach($module in $modules)
 
     $psm1Name=$name+".psm1"
     $psd1Name=$name+".psd1"
-    $nuspecName=$name+".nuspec"
     $psd1Path=Join-Path $module.FullName $psd1Name
-    $nuspecPath=Join-Path $module.FullName $nuspecName
 
     $guid="c1e7cbac-9e47-4906-8281-5f16471d7ccd"
     $hash=@{
@@ -54,21 +30,17 @@ foreach($module in $modules)
         "Guid"=$guid;
         "ModuleVersion"=$semVersion;
         "Path"=$psd1Path;
-        "RequiredModules"=@{ModuleName="PSMarkdown";ModuleVersion="1.1"};
         "Tags"=@('Markdown', 'Tools');
         "LicenseUri"='https://github.com/Sarafian/MarkdownPS/blob/master/LICENSE';
-        "ProjectUri"= 'https://github.com/Sarafian/MarkdownPS/';
+        "ProjectUri"= 'http://sarafian.github.io/MarkdownPS/';
         "IconUri" ='https://github.com/dcurtis/markdown-mark/blob/master/png/66x40-solid.png';
-        "ReleaseNotes"= 'Initial Release on Powershell Gallery';
+        "ReleaseNotes"= 'https://github.com/Sarafian/MarkdownPS/blob/master/CHANGELOG.md';
         "CmdletsToExport" = $exportedNames;
         "FunctionsToExport" = $exportedNames;
         "PowerShellHostVersion"="4.0"
     }
 
     New-ModuleManifest  @hash 
-    $nuspec=$ExecutionContext.InvokeCommand.ExpandString($nuspecTemplate)
-    $nuspec|Out-File $nuspecPath -Force
 }
-Pop-Location -stackname $stackName
 
 

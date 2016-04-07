@@ -12,7 +12,7 @@ if($LASTEXITCODE -ne 0)
     Write-Error "Stopping"
     exit -1
 }
-& "$PSScriptRoot\PreparePSD1AndNuSpec.ps1"
+& "$PSScriptRoot\PreparePSD1.ps1"
 
-Publish-Module -Path "$PSScriptRoot\..\Modules\MarkdownPS" -NuGetApiKey $NuGetApiKey 
+#Publish-Module -Path "$PSScriptRoot\..\Modules\MarkdownPS" -NuGetApiKey $NuGetApiKey 
 
