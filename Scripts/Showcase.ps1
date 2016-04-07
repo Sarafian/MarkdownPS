@@ -119,7 +119,10 @@ $markdown+=New-MDCode -Lines $lines -Style "xml"
 #endregion
 
 #region Tables
-$markdown+=(Get-Command -Module MarkdownPS | Select-Object Name,ModuleName |ConvertTo-Markdown) -join [System.Environment]::NewLine
+$markdown+=New-MDParagraph -Lines "Without aligned columns"
+$markdown+=Get-Command -Module MarkdownPS |Select-Object Name,CommandType,Version | New-MDTable
+$markdown+=New-MDParagraph -Lines "With aligned columns"
+$markdown+=Get-Command -Module MarkdownPS | New-MDTable -Columns ([ordered]@{Name="left";CommandType="center";Version="right"})
 #endregion
 
 $markdown

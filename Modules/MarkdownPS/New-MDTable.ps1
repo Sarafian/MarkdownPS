@@ -11,12 +11,42 @@
     .PARAMETER NoNewLine
         Controls if a new line is added at the end of the output
 
+    .PARAMETER Columns
+        The columns that compose the table. Columns must be an ordered hashtable [ordered]@{} where the keys are the column names and as optional value (left,center,right).
+
     .EXAMPLE
         Get-Command New-MDTable |Select-Object Name,CommandType | New-MDTable
 
         Name        | CommandType
         ----------- | -----------
         New-MDTable | Function   
+
+    .EXAMPLE
+        Get-Command New-MDTable | New-MDTable -Columns ([ordered]@{Name=$null;CommandType=$null})
+
+        | Name        | CommandType |
+        | ----------- | ----------- |
+        | New-MDTable | Function    |
+
+    .EXAMPLE
+        Get-Command New-MDTable | New-MDTable -Columns ([ordered]@{CommandType=$null;Name=$null})
+
+        | CommandType | Name        |
+        | ----------- | ----------- |
+        | Function    | New-MDTable |
+
+    .EXAMPLE
+        Get-Command New-MDTable | New-MDTable -Columns (@{CommandType=$null;Name=$null})
+
+        | Name        | CommandType |
+        | ----------- | ----------- |
+        | New-MDTable | Function    |
+
+    .EXAMPLE
+        Get-Command New-MDTable | New-MDTable -Columns ([ordered]@{Name="left";CommandType="center";Version="right"})
+        | Name        | CommandType | Version     |
+        | ----------- |:-----------:| -----------:|
+        | New-MDTable | Function    |             |
 
     .INPUTS
         Any table
@@ -26,10 +56,6 @@
 
     .NOTES
         Use the -NoNewLine parameter when you don't want the next markdown content to be separated.
-
-    .LINK
-        ConvertTo-Markdown
-        https://help.github.com/articles/basic-writing-and-formatting-syntax/
 #>
 function New-MDTable {
 [CmdletBinding()]
@@ -69,7 +95,7 @@ function New-MDTable {
             ForEach($item in $Object) 
             {
                 $item.PSObject.Properties | %{
-                    if(-not $Columns.ContainsKey($_.Name)){
+                    if(-not $Columns.Contains($_.Name)){
                         $Columns[$_.Name]=$null
                     }
                 }
@@ -77,7 +103,7 @@ function New-MDTable {
         }
         ForEach($item in $Object) {
             $item.PSObject.Properties | %{
-                if($Columns.ContainsKey($_.Name) -and $_.Value -ne $null){
+                if($Columns.Contains($_.Name) -and $_.Value -ne $null){
                     $maxColumnLength=[Math]::Max($maxColumnLength, $_.Value.Length)
                 }
             }
@@ -95,13 +121,13 @@ function New-MDTable {
         $separator = @()
         ForEach($key in $Columns.Keys) {
             switch($Columns[$key]) {
-                "left-aligned" {
+                "left" {
                     $separator += ' '+'-' * $maxColumnLength+' '
                 }
-                "right-aligned" {
+                "right" {
                     $separator += ' '+'-' * $maxColumnLength+':'
                 }  
-                "center-aligned" {
+                "center" {
                     $separator += ':'+'-' * $maxColumnLength+':'
                 }
                 default {

@@ -1,4 +1,4 @@
-**20160407**
+**20160408**
 - Removed dependency to `ConvertTo-Markdown` from [PSMarkdown](http://www.powershellgallery.com/packages/PSMarkdown).
 - `New-MDTable` now supports columns alignment and sequencing
 
