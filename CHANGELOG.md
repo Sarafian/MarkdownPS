@@ -1,3 +1,8 @@
+**20160419**
+- With `New-MDImage` changed parameter `-Link` to `-Source` to drive the image source.
+- With `New-MDImage` added parameter `-Link` to make a link image.
+- `New-MDImage` supports parameterset `shields.io` that generates badges from [shields.io](https://shields.io/) using the url format `https://img.shields.io/badge/%3CSUBJECT%3E-%3CSTATUS%3E-%3CCOLOR%3E.svg`.
+
 **20160408**
 - Removed dependency to `ConvertTo-Markdown` from [PSMarkdown](http://www.powershellgallery.com/packages/PSMarkdown).
 - `New-MDTable` now supports columns alignment and sequencing
