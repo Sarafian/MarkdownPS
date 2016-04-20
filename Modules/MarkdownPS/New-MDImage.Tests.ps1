@@ -64,10 +64,10 @@ Describe "New-MDImage" {
             New-MDImage -Subject $subject -Status $status -Color $color | Should Be $expected
         }
         It "With special chars" {
-            $subject="dash-underscor_space ."
-            $status="dash-underscor_space ."
+            $subject="dash-underscore_parenthesis()space ."
+            $status="dash-underscore_parenthesis()space ."
             $color="green"
-            $expected="![](https://img.shields.io/badge/dash--underscor__space%20.-dash--underscor__space%20.-$color.svg)"
+            $expected="![](https://img.shields.io/badge/dash--underscore__parenthesis%28%29space%20.-dash--underscore__parenthesis%28%29space%20.-$color.svg)"
             New-MDImage -Subject $subject -Status $status -Color $color | Should Be $expected
         }
         It "-Link specified" {

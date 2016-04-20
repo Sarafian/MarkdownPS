@@ -1,6 +1,6 @@
 function Get-Version {
     $major=1
-    $minor=3
+    $minor=4
     $patch=0
 
     return "$major.$minor"    

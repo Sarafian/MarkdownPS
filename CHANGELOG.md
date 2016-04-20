@@ -1,3 +1,6 @@
+**20160420**
+- Within `New-MDImage` `[System.Uri]::EscapeDataString` is not escaping `(`,`)` when not executing from withing ise. Don't know why. Fixed with extra replacements.
+
 **20160419**
 - With `New-MDImage` changed parameter `-Link` to `-Source` to drive the image source.
 - With `New-MDImage` added parameter `-Link` to make a link image.
