@@ -123,6 +123,14 @@ function New-MDImage {
 
             $Status=$Status.Replace("-","--").Replace("_","__")
             $Status=[System.Uri]::EscapeDataString($Status)
+            
+            #When running from powershell [System.Uri]::EscapeDataString is not escaping ()
+            if(-not $ise)
+            {
+                $Subject=$Subject.Replace("(","%28").Replace(")","%29")
+                $Status=$Status.Replace("(","%28").Replace(")","%29")
+            }
+            
             $shieldIo="$Subject-$Status-$Color"
 
             $Source="https://img.shields.io/badge/$shieldIo.svg"
