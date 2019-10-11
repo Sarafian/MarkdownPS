@@ -32,7 +32,7 @@ foreach($module in $modules)
         "Path"=$psd1Path;
         "Tags"=@('Markdown', 'Tools');
         "LicenseUri"='https://github.com/Sarafian/MarkdownPS/blob/master/LICENSE';
-        "ProjectUri"= 'http://sarafian.github.io/MarkdownPS/';
+        "ProjectUri"= 'https://github.com/Sarafian/MarkdownPS/';
         "IconUri" ='https://github.com/dcurtis/markdown-mark/blob/master/png/66x40-solid.png';
         "ReleaseNotes"= 'https://github.com/Sarafian/MarkdownPS/blob/master/CHANGELOG.md';
         "CmdletsToExport" = $exportedNames;
