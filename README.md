@@ -1,4 +1,6 @@
 # MarkdownPS
+
+[![Join the chat at https://gitter.im/Sarafian/MarkdownPS](https://badges.gitter.im/Sarafian/MarkdownPS.svg)](https://gitter.im/Sarafian/MarkdownPS?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 A powershell module to render markdown files. 
 
 | Branch | Status
