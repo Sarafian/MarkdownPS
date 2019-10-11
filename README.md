@@ -1,14 +1,14 @@
 # MarkdownPS
 
 [![Join the chat at https://gitter.im/Sarafian/MarkdownPS](https://badges.gitter.im/Sarafian/MarkdownPS.svg)](https://gitter.im/Sarafian/MarkdownPS?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A powershell module to render markdown files. 
 
-| Branch | Status
-| ---------- | ---------
-| **master** | ![masterstatus](https://asarafian.visualstudio.com/DefaultCollection/_apis/public/build/definitions/9411077a-da68-4370-9d62-7fa8ec77dfa9/9/badge)
-| **develop** | ![masterstatus](https://asarafian.visualstudio.com/DefaultCollection/_apis/public/build/definitions/9411077a-da68-4370-9d62-7fa8ec77dfa9/8/badge)
+[MarkdownPS](https://www.powershellgallery.com/packages/MarkdownPS/) is a PowerShell module available on powershell gallery that helps render markdown. Once in markdown, it can be easily converted into any other format. Potential use cases are:
 
-[MarkdownPS](https://www.powershellgallery.com/packages/MarkdownPS/) on powershell gallery.
+- Render a report after executing a script. 
+- Generate sort of dashboard pages as a result of querying resources with a script.
+- Prepare markdown assets in a repository for example in static html generated web sites.
 
 # Commandlets
 
