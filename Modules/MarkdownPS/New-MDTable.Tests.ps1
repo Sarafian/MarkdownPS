@@ -5,7 +5,7 @@ $VerbosePreference="SilentlyContinue"
 $newLine=[System.Environment]::NewLine
 Describe "New-MDTable" {
     It "-Object is null" {
-        {New-MDTable -Object $null} | Should Throw "because it is null."
+        Invoke-Command -ScriptBlock {TRY{New-MDTable -Object $null} CATCH{Return $_.FullyQualifiedErrorId}} | Should Be "ParameterArgumentValidationErrorNullNotAllowed,New-MDTable"
     }
 }
 Describe "New-MDTable without columns" {
