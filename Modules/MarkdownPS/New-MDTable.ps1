@@ -91,7 +91,7 @@ function New-MDTable {
         }
         if(-not $Columns)
         {
-            $Columns=@{}
+            $Columns=[ordered]@{}
             ForEach($item in $Object) 
             {
                 $item.PSObject.Properties | %{
