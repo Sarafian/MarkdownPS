@@ -3,6 +3,29 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".")
 . "$here\$sut"
 $VerbosePreference="SilentlyContinue"
 $newLine=[System.Environment]::NewLine
+
+function Get-RandomValue
+{
+    param(
+        [Parameter(Mandatory = $true, ParameterSetName = "String")]
+        [switch]$String,
+        [Parameter(Mandatory = $true, ParameterSetName = "Int")]
+        [switch]$Int
+    )
+
+    switch ($PSCmdlet.ParameterSetName)
+    {
+        'String'
+        {
+            "Random-" + ( -join ((65..90) + (97..122) | Get-Random -Count 5 | % { [char]$_ }))
+        }
+        'Int'
+        {
+            10000 + (Get-Random -Maximum 100)
+        }
+    }
+}
+
 Describe "New-MDTable" {
     It "-Object is null" {
         Invoke-Command -ScriptBlock {TRY{New-MDTable -Object $null} CATCH{Return $_.FullyQualifiedErrorId}} | Should Be "ParameterArgumentValidationErrorNullNotAllowed,New-MDTable"
@@ -46,10 +69,21 @@ Describe "New-MDTable with columns" {
 }
 
 Describe "New-MDTable with ordered hashtable and without columns" {
-    $object=[PSCustomObject]@{
-        Name = "This should be the first value"
-        ZProperty = "This should be in the middle"
-        AnotherProperty = "This should be the last value"
+    BeforeEach {
+        $properties=@(
+            Get-RandomValue -String
+            Get-RandomValue -String
+            Get-RandomValue -String
+            Get-RandomValue -String
+            Get-RandomValue -String
+        )
+        $object=[PSCustomObject]@{
+            $properties[0] = "This is property $($properties[0])"
+            $properties[1] = "This is property $($properties[1])"
+            $properties[2] = "This is property $($properties[2])"
+            $properties[3] = "This is property $($properties[3])"
+            $properties[4] = "This is property $($properties[4])"
+        }
     }
     It "-NoNewLine not specified" {
         $expected=4
@@ -63,17 +97,37 @@ Describe "New-MDTable with ordered hashtable and without columns" {
         (($object | New-MDTable -NoNewLine) -split [System.Environment]::NewLine).Length | Should Be $expected
         ((@($object, $object) | New-MDTable -NoNewLine) -split [System.Environment]::NewLine).Length | Should Be ($expected+1)
     }
-    It "Header should be in correct order" {
-        $HeaderRegex = "^\|\s([\w\d]+)\s*\|\s([\w\d]+)\s*\|\s([\w\d]+)\s*\|$"
-        $expectedHeader = ($object.PsObject.Members | Where-Object {$_.MemberType -eq "NoteProperty"})[0..2].Name
-        (((New-MDTable -Object $object) -split [System.Environment]::NewLine)[0]) -match $HeaderRegex
-        $Matches[1..3] | Should Be $expectedHeader
+    It "Test column header sequence" {
+    
+        $rows=(New-MDTable -Object $object) -split [System.Environment]::NewLine 
+        $elements=$rows[0] -split '\|'
+        $elements.Count | Should Be 7
+        $elements[0].Length | Should Be 0
+        $elements[1] | Should  Match $properties[0]
+        $elements[2] | Should  Match $properties[1]
+        $elements[3] | Should  Match $properties[2]
+        $elements[4] | Should  Match $properties[3]
+        $elements[5] | Should  Match $properties[4]
+        $elements[6].Length | Should Be 0
+    }
+    It "Test column header with overwritten sequence" {
+        $columns=[ordered]@{
+            $properties[3]=$null
+            $properties[2]="left"
+            $properties[1]="center"
+            $properties[0]="right"
+        }
+    
 
-        ((($object | New-MDTable) -split [System.Environment]::NewLine)[0]) -match $HeaderRegex
-        $Matches[1..3] | Should Be $expectedHeader
-
-        (((@($object, $object) | New-MDTable) -split [System.Environment]::NewLine)[0]) -match $HeaderRegex
-        $Matches[1..3] | Should Be $expectedHeader
+        $rows=(New-MDTable -Object $object -Columns $columns) -split [System.Environment]::NewLine 
+        $elements=$rows[0] -split '\|'
+        $elements.Count | Should Be 6
+        $elements[0].Length | Should Be 0
+        $elements[1] | Should  Match $properties[3]
+        $elements[2] | Should  Match $properties[2]
+        $elements[3] | Should  Match $properties[1]
+        $elements[4] | Should  Match $properties[0]
+        $elements[6].Length | Should Be 0
     }
 }
 
