@@ -1,3 +1,7 @@
+**v1.5** *20160420*
+- GH-17 thanks to @Wav3
+- Removed from the manifest the `PowerShellHostVersion` because it created some issues with *in-remoting* like sessions.
+
 **20160420**
 - Within `New-MDImage` `[System.Uri]::EscapeDataString` is not escaping `(`,`)` when not executing from withing ise. Don't know why. Fixed with extra replacements.
 

@@ -37,7 +37,6 @@ foreach($module in $modules)
         "ReleaseNotes"= 'https://github.com/Sarafian/MarkdownPS/blob/master/CHANGELOG.md';
         "CmdletsToExport" = $exportedNames;
         "FunctionsToExport" = $exportedNames;
-        "PowerShellHostVersion"="4.0"
     }
 
     New-ModuleManifest  @hash 
