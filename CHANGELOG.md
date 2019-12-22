@@ -1,3 +1,7 @@
+**v1.6** *20160420*
+- Fixed published manifest file which broke the 1.5 module.
+- No code changes.
+
 **v1.5** *20160420*
 - GH-17 thanks to @Wav3
 - Removed from the manifest the `PowerShellHostVersion` because it created some issues with *in-remoting* like sessions.
