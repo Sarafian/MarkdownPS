@@ -11,15 +11,18 @@
     .PARAMETER NoNewLine
         Controls if a new line is added at the end of the output
 
+    .PARAMETER AutoSize
+        Indicates that the function adjusts the column size and number of columns based on the width of the data
+    
     .PARAMETER Columns
         The columns that compose the table. Columns must be an ordered hashtable [ordered]@{} where the keys are the column names and as optional value (left,center,right).
 
     .EXAMPLE
         Get-Command New-MDTable |Select-Object Name,CommandType | New-MDTable
 
-        Name        | CommandType
-        ----------- | -----------
-        New-MDTable | Function   
+        | Name        | CommandType |
+        | ----------- | ----------- |
+        | New-MDTable | Function    |
 
     .EXAMPLE
         Get-Command New-MDTable | New-MDTable -Columns ([ordered]@{Name=$null;CommandType=$null})
@@ -75,13 +78,15 @@ function New-MDTable {
             ValueFromPipeline = $false
         )]
         [ValidateNotNullOrEmpty()]
-        [switch]$NoNewLine=$false
+        [switch]$NoNewLine=$false,
+        [switch]$AutoSize
     )
 
     Begin {
         $items = @()
-        $maxColumnLength=0
-        $output=""
+        $maxColumnLength = 0
+        $maxLengthByColumn = @{}
+        $output = ""
     }
 
     Process {
@@ -94,17 +99,42 @@ function New-MDTable {
             $Columns=[ordered]@{}
             ForEach($item in $Object) 
             {
-                $item.PSObject.Properties | %{
-                    if(-not $Columns.Contains($_.Name)){
-                        $Columns[$_.Name]=$null
+                $item.PSObject.Properties | ForEach-Object {
+                    if(-not $Columns.Contains($_.Name))
+                    {
+                        $Columns[$_.Name] = $null
                     }
                 }
             }
         }
+        
+        if($AutoSize)
+        {
+            ForEach($key in $Columns.Keys) 
+            {
+                if ($maxLengthByColumn[$key] -lt $key.Length)
+                {
+                    $maxLengthByColumn[$key] = $key.Length
+                }
+            }
+        }
+        
         ForEach($item in $Object) {
-            $item.PSObject.Properties | %{
-                if($Columns.Contains($_.Name) -and $_.Value -ne $null){
-                    $maxColumnLength=[Math]::Max($maxColumnLength, $_.Value.Length)
+            $item.PSObject.Properties | ForEach-Object {
+                $name = $_.Name
+                $value = $_.Value
+                if($Columns.Contains($name) -and $value -ne $null)
+                {
+                    $valueLength = $value.ToString().Length
+                    if($AutoSize)
+                    {
+                        $maxLength = $maxLengthByColumn[$name]
+                        $maxLengthByColumn[$name] = [Math]::Max($maxLength, $valueLength)
+                    }
+                    else
+                    {
+                        $maxColumnLength = [Math]::Max($maxColumnLength, $valueLength)
+                    }
                 }
             }
         }
@@ -113,14 +143,25 @@ function New-MDTable {
     End {
         $lines=@()
         $header = @()
-        ForEach($key in $Columns.Keys) {
+        ForEach($key in $Columns.Keys) 
+        {
+            if($AutoSize)
+            {
+                $maxColumnLength = $maxLengthByColumn[$key]
+            }
             $header += ('{0,-' + $maxColumnLength + '}') -f $key
         }
-        $lines+='| '+($header -join ' | ')+' |'
+        $lines += '| '+($header -join ' | ')+' |'
 
         $separator = @()
-        ForEach($key in $Columns.Keys) {
-            switch($Columns[$key]) {
+        ForEach($key in $Columns.Keys) 
+        {
+            if($AutoSize)
+            {
+                $maxColumnLength = $maxLengthByColumn[$key]
+            }
+            switch($Columns[$key]) 
+            {
                 "left" {
                     $separator += ' '+'-' * $maxColumnLength+' '
                 }
@@ -135,22 +176,25 @@ function New-MDTable {
                 }  
             }
         }
-        $lines+='|'+($separator -join '|')+'|'
+        $lines += '|'+($separator -join '|')+'|'
 
         ForEach($item in $items) {
             $values = @()
-            ForEach($key in $Columns.Keys) {
+            ForEach($key in $Columns.Keys) 
+            {
+                if($AutoSize)
+                {
+                    $maxColumnLength = $maxLengthByColumn[$key]
+                }
                 $values += ('{0,-' + $maxColumnLength + '}') -f $item.($key)
             }
-            $lines+='| '+ ($values -join ' | ') + ' |'
+            $lines += '| '+ ($values -join ' | ') + ' |'
         }
         $output+=$lines -join  [System.Environment]::NewLine
 
-
-
         if(-not $NoNewLine)
         {
-            $output+=[System.Environment]::NewLine
+            $output += [System.Environment]::NewLine
         }
         $output
     }
