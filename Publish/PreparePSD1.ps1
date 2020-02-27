@@ -1,13 +1,13 @@
-﻿& "$PSScriptRoot\..\ISEScripts\Reset-Module.ps1"
+﻿Import-Module "$PSScriptRoot\..\Modules\MarkdownPS\MarkdownPS.psm1" -Force
 
-$exportedNames=Get-Command -Module MarkDownPS | Select-Object -ExcludeProperty Name
+$exportedNames=@(Get-Command -Module MarkDownPS | Select-Object -ExpandProperty Name)
 
 . "$PSScriptRoot\Version.ps1"
 $semVersion=Get-Version
 
 $author="Alex Sarafian"
-$company=""
-$copyright="(c) $($date.Year) $company. All rights reserved."
+#$company=""
+#$copyright="(c) $($date.Year) $company. All rights reserved."
 $description="A module to help render Markdown from powershell"
 
 $modules=Get-ChildItem "$PSScriptRoot\..\Modules\"
@@ -24,7 +24,7 @@ foreach($module in $modules)
     $guid="c1e7cbac-9e47-4906-8281-5f16471d7ccd"
     $hash=@{
         "Author"=$author;
-        "Copyright"=$cop;
+#        "Copyright"=$copyright;
         "RootModule"=$psm1Name;
         "Description"=$description;
         "Guid"=$guid;

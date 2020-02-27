@@ -36,8 +36,6 @@ The following [Showcase](Scripts/Showcase.ps1) script renders various artifacts 
 # Verify here
 # https://jbt.github.io/markdown-editor/
 
-& "$PSScriptRoot\..\ISEScripts\Reset-Module.ps1"
-
 $markdown=""
 
 #region headers

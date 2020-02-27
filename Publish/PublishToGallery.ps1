@@ -1,9 +1,9 @@
 Param (
     [Parameter(
-        Mandatory = $true
+        Mandatory = $false
     )]
     [ValidateNotNullOrEmpty()]
-    [string]$NuGetApiKey
+    [string]$NuGetApiKey=$null
 )
 
 & "$PSScriptRoot\..\Pester\Test-All.ps1"
@@ -14,5 +14,12 @@ if($LASTEXITCODE -ne 0)
 }
 & "$PSScriptRoot\PreparePSD1.ps1"
 
-Publish-Module -Path "$PSScriptRoot\..\Modules\MarkdownPS" -NuGetApiKey $NuGetApiKey 
+if($NuGetApiKey)
+{
+    Publish-Module -Path "$PSScriptRoot\..\Modules\MarkdownPS" -NuGetApiKey $NuGetApiKey
+}
+else {
+    Publish-Module -Path "$PSScriptRoot\..\Modules\MarkdownPS" -NuGetApiKey "test" -WhatIf
+}
+
 
