@@ -10,7 +10,7 @@ Param (
     [string]$OutputPath=$null
 )
 
-& "$PSScriptRoot\Initialize-Pester.ps1"
+# & "$PSScriptRoot\Initialize-Pester.ps1"
 
 $modulesToTest=@(
     "MarkdownPS"
