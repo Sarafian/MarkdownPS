@@ -35,15 +35,15 @@ Describe "New-MDTable without columns" {
     $object=Get-Command New-MDTable |Select-Object Name,CommandType
     It "-NoNewLine not specified" {
         $expected=4
-        ((New-MDTable -Object $object) -split [System.Environment]::NewLine ).Length| Should Be $expected
-        (($object | New-MDTable) -split [System.Environment]::NewLine ).Length| Should Be $expected
-        ((@($object,$object) | New-MDTable)  -split [System.Environment]::NewLine ).Length | Should Be ($expected+1)
+        ((New-MDTable -Object $object) -split $newLine ).Length| Should Be $expected
+        (($object | New-MDTable) -split $newLine ).Length| Should Be $expected
+        ((@($object,$object) | New-MDTable)  -split $newLine ).Length | Should Be ($expected+1)
     }
     It "-NoNewLine specified" {
         $expected=3
-        ((New-MDTable -Object $object -NoNewLine) -split [System.Environment]::NewLine ).Length| Should Be $expected
-        (($object | New-MDTable -NoNewLine) -split [System.Environment]::NewLine ).Length| Should Be $expected
-        ((@($object,$object) | New-MDTable -NoNewLine)  -split [System.Environment]::NewLine ).Length | Should Be ($expected+1)
+        ((New-MDTable -Object $object -NoNewLine) -split $newLine ).Length| Should Be $expected
+        (($object | New-MDTable -NoNewLine) -split $newLine ).Length| Should Be $expected
+        ((@($object,$object) | New-MDTable -NoNewLine)  -split $newLine ).Length | Should Be ($expected+1)
     }
 }
 Describe "New-MDTable with columns" {
@@ -56,15 +56,15 @@ Describe "New-MDTable with columns" {
     }
     It "-NoNewLine not specified" {
         $expected=4
-        ((New-MDTable -Object $object -Columns $columns) -split [System.Environment]::NewLine ).Length| Should Be $expected
-        (($object | New-MDTable -Columns $columns) -split [System.Environment]::NewLine ).Length| Should Be $expected
-        ((@($object,$object) | New-MDTable -Columns $columns)  -split [System.Environment]::NewLine ).Length | Should Be ($expected+1)
+        ((New-MDTable -Object $object -Columns $columns) -split $newLine ).Length| Should Be $expected
+        (($object | New-MDTable -Columns $columns) -split $newLine ).Length| Should Be $expected
+        ((@($object,$object) | New-MDTable -Columns $columns)  -split $newLine ).Length | Should Be ($expected+1)
     }
     It "-NoNewLine specified" {
         $expected=3
-        ((New-MDTable -Object $object -Columns $columns -NoNewLine) -split [System.Environment]::NewLine ).Length| Should Be $expected
-        (($object | New-MDTable -Columns $columns -NoNewLine) -split [System.Environment]::NewLine ).Length| Should Be $expected
-        ((@($object,$object) | New-MDTable -Columns $columns -NoNewLine)  -split [System.Environment]::NewLine ).Length | Should Be ($expected+1)
+        ((New-MDTable -Object $object -Columns $columns -NoNewLine) -split $newLine ).Length| Should Be $expected
+        (($object | New-MDTable -Columns $columns -NoNewLine) -split $newLine ).Length| Should Be $expected
+        ((@($object,$object) | New-MDTable -Columns $columns -NoNewLine)  -split $newLine ).Length | Should Be ($expected+1)
     }
 }
 
@@ -87,19 +87,19 @@ Describe "New-MDTable with ordered hashtable and without columns" {
     }
     It "-NoNewLine not specified" {
         $expected=4
-        ((New-MDTable -Object $object) -split [System.Environment]::NewLine).Length | Should Be $expected
-        (($object | New-MDTable) -split [System.Environment]::NewLine).Length | Should Be $expected
-        ((@($object, $object) | New-MDTable) -split [System.Environment]::NewLine).Length | Should Be ($expected+1)
+        ((New-MDTable -Object $object) -split $newLine).Length | Should Be $expected
+        (($object | New-MDTable) -split $newLine).Length | Should Be $expected
+        ((@($object, $object) | New-MDTable) -split $newLine).Length | Should Be ($expected+1)
     }
     It "-NoNewLine not specified" {
         $expected=3
-        ((New-MDTable -Object $object -NoNewLine) -split [System.Environment]::NewLine).Length | Should Be $expected
-        (($object | New-MDTable -NoNewLine) -split [System.Environment]::NewLine).Length | Should Be $expected
-        ((@($object, $object) | New-MDTable -NoNewLine) -split [System.Environment]::NewLine).Length | Should Be ($expected+1)
+        ((New-MDTable -Object $object -NoNewLine) -split $newLine).Length | Should Be $expected
+        (($object | New-MDTable -NoNewLine) -split $newLine).Length | Should Be $expected
+        ((@($object, $object) | New-MDTable -NoNewLine) -split $newLine).Length | Should Be ($expected+1)
     }
     It "Test column header sequence" {
     
-        $rows=(New-MDTable -Object $object) -split [System.Environment]::NewLine 
+        $rows=(New-MDTable -Object $object) -split $newLine 
         $elements=$rows[0] -split '\|'
         $elements.Count | Should Be 7
         $elements[0].Length | Should Be 0
@@ -119,7 +119,7 @@ Describe "New-MDTable with ordered hashtable and without columns" {
         }
     
 
-        $rows=(New-MDTable -Object $object -Columns $columns) -split [System.Environment]::NewLine 
+        $rows=(New-MDTable -Object $object -Columns $columns) -split $newLine 
         $elements=$rows[0] -split '\|'
         $elements.Count | Should Be 6
         $elements[0].Length | Should Be 0
@@ -140,7 +140,7 @@ Describe "New-MDTable with ordered columns" {
         Source="right"
     }
     It "Test column header sequence" {
-        $rows=(New-MDTable -Object $object -Columns $columns) -split [System.Environment]::NewLine 
+        $rows=(New-MDTable -Object $object -Columns $columns) -split $newLine 
         $elements=$rows[0] -split '\|'
         $elements.Count | Should Be 6
         $elements[0].Length | Should Be 0
@@ -151,7 +151,7 @@ Describe "New-MDTable with ordered columns" {
         $elements[5].Length | Should Be 0
     }
     It "Test column alignment " {
-        $rows=(New-MDTable -Object $object -Columns $columns) -split [System.Environment]::NewLine 
+        $rows=(New-MDTable -Object $object -Columns $columns) -split $newLine 
         $elements=$rows[1] -split '\|'
         
         $elements.Count | Should Be 6
@@ -162,4 +162,27 @@ Describe "New-MDTable with ordered columns" {
         $elements[4] | Should  Match " -*:"
         $elements[5].Length | Should Be 0
     }
+}
+
+
+Describe "New-MDTable shrinking" {
+    $object=Get-Command New-MDTable |Select-Object Name,CommandType
+    It "-Shrink not specified" {
+        $lines=(@(
+            New-MDTable -Object $object
+            $object | New-MDTable -NoNewLine
+        ) -join "") -split $newLine
+        
+        ($lines|ForEach-Object {$_.Length}|Select-Object -Unique).Count |Should BeExactly 1
+        
+    }
+    It "-Shrink specified" {
+        $lines=(@(
+            New-MDTable -Object $object -Shrink
+            $object | New-MDTable -NoNewLine -Shrink
+        ) -join "") -split $newLine
+        ($lines|ForEach-Object {$_.Length}|Select-Object -Unique).Count |Should BeExactly 2
+        
+    }
+
 }
