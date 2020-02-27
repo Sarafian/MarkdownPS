@@ -1,5 +1,5 @@
 **v1.7** *20200227*
-- Based on GH-20 the default output of `New-MDTable` has a cell length alignment per column. New parameter `-Shrink` is added to reduce the overall size and each cell is not padded.
+- Based on GH-20 the default output of `New-MDTable` has a cell length alignment per column. New parameter `-Shrink` is added to reduce the overall size and each cell is not padded. Thanks to @al-cheb
 
 **v1.6** *20160420*
 - Fixed published manifest file which broke the 1.5 module.
