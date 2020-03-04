@@ -3,7 +3,7 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".")
 . "$here\$sut"
 
 $newLine=[System.Environment]::NewLine
-Describe "New-MDCode" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDCode" {
     It "-Lines is null" {
         {New-MDCode -Lines $null} | Should Throw "because it is null."
     }
@@ -11,7 +11,7 @@ Describe "New-MDCode" {
         {New-MDCode -Lines @()} | Should Throw "because it is an empty array."
     }
 }
-Describe "New-MDCode" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDCode" {
     $prefix="``````"
     It "-Lines count is 1 & -Style is not specified" {
         $expected=$prefix+$newLine+"    Line 1"+$newLine+$prefix+$newLine

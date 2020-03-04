@@ -3,7 +3,7 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".")
 . "$here\$sut"
 
 $newLine=[System.Environment]::NewLine
-Describe "New-MDParagraph" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDParagraph" {
     It "-Lines is null" {
         New-MDParagraph | Should Be ($newLine+$newLine)
     }
@@ -19,7 +19,7 @@ Describe "New-MDParagraph" {
     }
 }
 
-Describe "New-MDParagraph -NoNewLine specified" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDParagraph -NoNewLine specified" {
     It "-Lines is null" {
         New-MDParagraph -NoNewLine | Should Be $newLine
     }

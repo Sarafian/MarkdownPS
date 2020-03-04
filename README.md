@@ -1,3 +1,6 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/a0fksoh6g9osnu5g/branch/master?svg=true)](https://ci.appveyor.com/project/Alex61243/markdownps/branch/master)
+[![MarkdownPS@PowerShell Gallery](https://img.shields.io/powershellgallery/dt/MarkdownPS?label=MarkdownPS%40PowerShell%20Gallery)](https://www.powershellgallery.com/packages/MarkdownPS/)
+
 # MarkdownPS
 
 [![Join the chat at https://gitter.im/Sarafian/MarkdownPS](https://badges.gitter.im/Sarafian/MarkdownPS.svg)](https://gitter.im/Sarafian/MarkdownPS?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -25,9 +28,9 @@ A powershell module to render markdown files.
 
 # Example script
 
-## The showcase script
+## The demo script
 
-The following [Showcase](Scripts/Showcase.ps1) script renders various artifacts as described on [Github/Basic writing and formatting syntax](https://help.github.com/articles/basic-writing-and-formatting-syntax/) and the output is validated on [(GitHub-Flavored) Markdown Editor](https://jbt.github.io/markdown-editor/)
+The following [Showcase](Demo/Demo.ps1) script renders various artifacts as described on [Github/Basic writing and formatting syntax](https://help.github.com/articles/basic-writing-and-formatting-syntax/) and the output is validated on [(GitHub-Flavored) Markdown Editor](https://jbt.github.io/markdown-editor/)
 
 ```powershell
 # Try to render some markdown as described here

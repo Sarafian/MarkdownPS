@@ -4,7 +4,7 @@
 # Verify here
 # https://jbt.github.io/markdown-editor/
 
-Import-Module "$PSScriptRoot\..\Modules\MarkdownPS\MarkdownPS.psm1" -Force
+Import-Module "$PSScriptRoot\..\Src\Modules\Import-MarkdownPS.ps1"
 
 $markdown=""
 

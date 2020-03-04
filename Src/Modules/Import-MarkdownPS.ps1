@@ -1,0 +1,1 @@
+Import-Module "$PSScriptRoot\MarkdownPS\MarkdownPS.psm1" -Force

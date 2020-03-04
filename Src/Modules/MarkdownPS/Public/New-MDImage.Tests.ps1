@@ -3,7 +3,7 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".")
 . "$here\New-MDLink.ps1"
 . "$here\$sut"
 
-Describe "New-MDImage" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDImage" {
     Context "Parameter set Source" {
         It "-Title not specified & -AltTitle not specified" {
             $source="http://example.com"

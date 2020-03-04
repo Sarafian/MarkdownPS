@@ -3,7 +3,7 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".")
 . "$here\$sut"
 
 $newLine=[System.Environment]::NewLine
-Describe "New-MDQuote" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDQuote" {
     It "-Lines is null" {
         {New-MDQuote -Lines $null} | Should Throw "because it is null."
     }
@@ -17,7 +17,7 @@ Describe "New-MDQuote" {
         {New-MDQuote -Lines "Line 1" -Level 4 -Style Unordered} | Should Throw "The 4 argument is greater than the maximum allowed range of 3"
     }
 }
-Describe "New-MDQuote" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDQuote" {
     It "-Lines count is 1 & -Level not specified" {
         $expected="> Line 1"+$newLine+$newLine
         New-MDQuote -Lines "Line 1" | Should Be $expected
@@ -70,7 +70,7 @@ Describe "New-MDQuote" {
     }
 }
 
-Describe "New-MDQuote -NoNewLine specified" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDQuote -NoNewLine specified" {
     It "-Lines count is 1 & -Level not specified" {
         $expected="> Line 1"+$newLine
         New-MDQuote -Lines "Line 1" -NoNewLine | Should Be $expected

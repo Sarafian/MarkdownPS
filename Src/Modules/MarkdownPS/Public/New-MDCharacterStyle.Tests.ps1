@@ -2,7 +2,7 @@
 $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".")
 . "$here\$sut"
 
-Describe "New-MDCharacterStyle" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDCharacterStyle" {
     It "-Style Bold" {
         $text="Bold characters"
         New-MDCharacterStyle -Text $text -Style Bold | Should Be "**$text**"

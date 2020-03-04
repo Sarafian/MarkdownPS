@@ -3,7 +3,7 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".")
 . "$here\$sut"
 
 $newLine=[System.Environment]::NewLine
-Describe "New-MDHeader" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDHeader" {
     It "-Level not provided" {
         $expected="# This is an H1" + $newLine
         (New-MDHeader -Text "This is an H1") | Should Be $expected

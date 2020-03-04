@@ -26,12 +26,12 @@ function Get-RandomValue
     }
 }
 
-Describe "New-MDTable" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDTable" {
     It "-Object is null" {
         Invoke-Command -ScriptBlock {TRY{New-MDTable -Object $null} CATCH{Return $_.FullyQualifiedErrorId}} | Should Be "ParameterArgumentValidationErrorNullNotAllowed,New-MDTable"
     }
 }
-Describe "New-MDTable without columns" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDTable without columns" {
     $object=Get-Command New-MDTable |Select-Object Name,CommandType
     It "-NoNewLine not specified" {
         $expected=4
@@ -46,7 +46,7 @@ Describe "New-MDTable without columns" {
         ((@($object,$object) | New-MDTable -NoNewLine)  -split $newLine ).Length | Should Be ($expected+1)
     }
 }
-Describe "New-MDTable with columns" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDTable with columns" {
     $object=Get-Command New-MDTable 
     $columns=@{
         Name=$null
@@ -68,7 +68,7 @@ Describe "New-MDTable with columns" {
     }
 }
 
-Describe "New-MDTable with ordered hashtable and without columns" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDTable with ordered hashtable and without columns" {
     BeforeEach {
         $properties=@(
             Get-RandomValue -String
@@ -131,7 +131,7 @@ Describe "New-MDTable with ordered hashtable and without columns" {
     }
 }
 
-Describe "New-MDTable with ordered columns" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDTable with ordered columns" {
     $object=Get-Command New-MDTable 
     $columns=[ordered]@{
         Name=$null
@@ -165,7 +165,7 @@ Describe "New-MDTable with ordered columns" {
 }
 
 
-Describe "New-MDTable shrinking" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDTable shrinking" {
     $object=Get-Command New-MDTable |Select-Object Name,CommandType
     It "-Shrink not specified" {
         $lines=(@(

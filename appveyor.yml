@@ -1,0 +1,26 @@
+version: 1.0.{build}
+image: Ubuntu1804
+init:
+- pwsh: Get-ChildItem ENV:\
+install:
+- pwsh: # Install-Module -Name Pester -Scope CurrentUser -Force  
+build: off
+test_script:
+- pwsh: '& .\CI\Invoke-Test.ps1 -AppVeyor'
+for:
+
+-
+  branches:
+    only:
+      - master
+    
+  environment:
+    NuGetAPIKey:
+      secure: aU9vw9DIzXNRjmiS8ZtYvFZij4RUvdpeqoR1XaaemfKUjdc3y2Qw+qzCNSHsLXxY
+  deploy_script:
+  - pwsh: >-
+      & .\CI\Publish-Module.ps1 -NuGetAPIKey $env:NuGetAPIKey
+
+notifications:
+  - provider: GitHubPullRequest
+    template: "{{#passed}}:white_check_mark:{{/passed}}{{#failed}}:x:{{/failed}} [Build {{&projectName}} {{buildVersion}} {{status}}]({{buildUrl}}) (commit {{commitUrl}} by @{{&commitAuthorUsername}})"
