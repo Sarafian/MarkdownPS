@@ -3,7 +3,15 @@ image: Ubuntu1804
 init:
 - pwsh: Get-ChildItem ENV:\
 install:
-- pwsh: # Install-Module -Name Pester -Scope CurrentUser -Force  
+- pwsh: >-
+    $modules=@(
+      # "Pester"
+      "SemVerPS"
+    )
+    
+    $modules|ForEach-Object {Install-Module -Name $_ -Scope CurrentUser -Force}
+
+    Get-Module -Name $modules -ListAvailable|Format-Table Name,Version,Path
 build: off
 test_script:
 - pwsh: '& .\CI\Invoke-Test.ps1 -AppVeyor'

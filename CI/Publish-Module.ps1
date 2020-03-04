@@ -1,3 +1,5 @@
+#Requires -Modules @{ ModuleName="SemVerPS"; ModuleVersion="1.0" }
+
 param(
     [Parameter(Mandatory=$false,ParameterSetName="Template")]
     [string]$NuGetApiKey=$null,
@@ -8,12 +10,6 @@ param(
     [Parameter(Mandatory=$false,ParameterSetName="Template")]
     [switch]$KeepManifests=$false
 )
-
-if (-not ("Semver.SemVersion" -as [type]))
-{
-    Write-verbose "Adding Semver.SemVersion type"
-    Add-Type -Path "$PSScriptRoot\CS\SemVersion.cs"
-}
 
 $sourceModuleItems=Get-ChildItem -Path "$PSScriptRoot\..\Src\Modules" -Directory
 
@@ -66,8 +62,8 @@ $sourceModuleItems |ForEach-Object {
             # Implicitly check the version of powershell and PowerShellGet module
             if($publishedVersion -is [string])
             {
-                $publishedVersion=[Semver.SemVersion]::Parse($publishedVersion)
-                $sourceModuleVersion=[Semver.SemVersion]::Parse($moduleHash.ModuleVersion)
+                $publishedVersion=ConvertTo-SemVer -Version $publishedVersion
+                $sourceModuleVersion=ConvertTo-SemVer -Version $moduleHash.ModuleVersion
             }
             else {
                 $sourceModuleVersion=[System.Version]::Parse($moduleHash.ModuleVersion)
