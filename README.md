@@ -1,9 +1,8 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/a0fksoh6g9osnu5g/branch/master?svg=true)](https://ci.appveyor.com/project/Alex61243/markdownps/branch/master)
 [![MarkdownPS@PowerShell Gallery](https://img.shields.io/powershellgallery/dt/MarkdownPS?label=MarkdownPS%40PowerShell%20Gallery)](https://www.powershellgallery.com/packages/MarkdownPS/)
+[![Join the chat at https://gitter.im/Sarafian/MarkdownPS](https://badges.gitter.im/Sarafian/MarkdownPS.svg)](https://gitter.im/Sarafian/MarkdownPS?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 # MarkdownPS
-
-[![Join the chat at https://gitter.im/Sarafian/MarkdownPS](https://badges.gitter.im/Sarafian/MarkdownPS.svg)](https://gitter.im/Sarafian/MarkdownPS?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 A powershell module to render markdown files. 
 
