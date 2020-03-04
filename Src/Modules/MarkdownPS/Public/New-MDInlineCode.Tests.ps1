@@ -2,7 +2,7 @@
 $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".")
 . "$here\$sut"
 
-Describe "New-MDInlineCode" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDInlineCode" {
     It "-Text provided" {
         $expected="``Inline``"
         New-MDInlineCode -Text "Inline" | Should Be $expected

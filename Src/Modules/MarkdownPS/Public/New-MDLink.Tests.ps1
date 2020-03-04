@@ -2,7 +2,7 @@
 $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".")
 . "$here\$sut"
 
-Describe "New-MDLink" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDLink" {
     It "-Title not specified" {
         $link="http://example.com"
         $expected="[Link]($link)"

@@ -3,7 +3,7 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".")
 . "$here\$sut"
 
 $newLine=[System.Environment]::NewLine
-Describe "New-MDList" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDList" {
     It "-Lines is null" {
         {New-MDList -Lines $null} | Should Throw "because it is null."
     }
@@ -21,7 +21,7 @@ Describe "New-MDList" {
         {New-MDList -Lines "Line 1" -Level 4 -Style Unordered} | Should Throw "The 4 argument is greater than the maximum allowed range of 3"
     }
 }
-Describe "New-MDList -Style Unordered" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDList -Style Unordered" {
     $style="Unordered"
     It "-Lines count is 1 & -Level not specified" {
         $expected="- Line 1"+$newLine+$newLine
@@ -74,7 +74,7 @@ Describe "New-MDList -Style Unordered" {
         @("Line 1","Line 2") | New-MDList  -Level $level -Style $style | Should Be $expected
     }
 }
-Describe "New-MDList -Style Unordered & -NoNewLine specified" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDList -Style Unordered & -NoNewLine specified" {
     $style="Unordered"
     It "-Lines count is 1 & -Level not specified " {
         $expected="- Line 1"+$newLine
@@ -127,7 +127,7 @@ Describe "New-MDList -Style Unordered & -NoNewLine specified" {
         @("Line 1","Line 2") | New-MDList  -Level $level -Style $style -NoNewLine | Should Be $expected
     }
 }
-Describe "New-MDList -Style Ordered" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDList -Style Ordered" {
     $style="Ordered"
     It "-Lines count is 1 & -Level not specified" {
         $expected="1. Step 1"+$newLine+$newLine
@@ -180,7 +180,7 @@ Describe "New-MDList -Style Ordered" {
         @("Step 1","Step 2") | New-MDList  -Level $level -Style $style | Should Be $expected
     }
 }
-Describe "New-MDList -Style Ordered & -NoNewLine specified" {
+Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDList -Style Ordered & -NoNewLine specified" {
     $style="Ordered"
     It "-Lines count is 1 & -Level not specified" {
         $expected="1. Step 1"+$newLine
