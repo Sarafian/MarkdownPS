@@ -1,7 +1,10 @@
 version: 1.0.{build}
 image: Ubuntu1804
 init:
-- pwsh: Get-ChildItem ENV:\
+- pwsh:  >-
+    $PSVersionTable
+
+    Get-ChildItem ENV:\
 install:
 - pwsh: >-
     $modules=@(

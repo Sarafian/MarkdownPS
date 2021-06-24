@@ -13,24 +13,30 @@ param(
 )
 $srcPath=Resolve-Path -Path "$PSScriptRoot\..\Src"
 $outputFile=[System.IO.Path]::GetTempFileName()+".xml"
-$splat=@{
-    Script=$srcPath
-    PassThru=$true
-    OutputFormat="NUnitXml"
-    OutputFile=$outputFile
-    ExcludeTag=$ExcludeTag
-    Tag=$Tag
-}
+
+# https://pester-docs.netlify.app/docs/commands/New-PesterConfiguration
+$pesterConfiguration=New-PesterConfiguration
+$pesterConfiguration.Run.Path=$srcPath
+$pesterConfiguration.Run.PassThru=$true
+$pesterConfiguration.Run.Path=$srcPath
+$pesterConfiguration.Filter.Tag=$Tag
+$pesterConfiguration.Filter.ExcludeTag=$ExcludeTag
+
+$pesterConfiguration.TestResult.Enabled=$true
+$pesterConfiguration.TestResult.OutputFormat="NUnitXml"
+$pesterConfiguration.TestResult.OutputPath=$outputFile
+
+$pesterConfiguration.Output.Verbosity="Detailed"
+#$pesterConfiguration.Output.Verbosity="Diagnostic"
+
 if($CodeCoverage)
 {
-    $codeCoveragePath=$outputFile.Replace(".xml",".codecoverage.xml")
-    $splat+=@{
-        CodeCoverage=Get-ChildItem -Path $srcPath -Exclude @("*.Tests.ps1","*.NotReady.ps1","Src\Tests\**") -Filter "*.ps1" -Recurse|Select-Object -ExpandProperty FullName
-        CodeCoverageOutputFile=$codeCoveragePath        
-    }
+    $pesterConfiguration.CodeCoverage.Enabled=$true
+#    $pesterConfiguration.CodeCoverage.OutputFormat="JaCoCo"
+    $pesterConfiguration.CodeCoverage.OutputPath=$outputFile.Replace(".xml",".codecoverage.xml")
 }
 
-$pesterResult=Invoke-Pester @splat
+$pesterResult=Invoke-Pester -Configuration $pesterConfiguration
 if($CodeCoverage)
 {
     $pesterResult|Select-Object @{
@@ -51,11 +57,11 @@ if($CodeCoverage)
 switch($PSCmdlet.ParameterSetName) {
     'AppVeyor' {
         (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", $outputFile)
+        if ($pesterResult.FailedCount -gt 0) { 
+            throw "$($pesterResult.FailedCount) tests failed."
+       }        
     }
     'Console' {
 
     }
-}
-if ($pesterResult.FailedCount -gt 0) { 
-     throw "$($pesterResult.FailedCount) tests failed."
 }
