@@ -146,5 +146,5 @@ $markdown+=Get-Command -Module MarkdownPS | New-MDTable -Columns ([ordered]@{Nam
 #endregion
 
 $markdown
-$markdown|clip
+
 
