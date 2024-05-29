@@ -1,7 +1,10 @@
 version: 1.0.{build}
 image: Ubuntu1804
 init:
-- pwsh: Get-ChildItem ENV:\
+- pwsh:  >-
+    $PSVersionTable
+
+    Get-ChildItem ENV:\
 install:
 - pwsh: >-
     $modules=@(
@@ -24,7 +27,7 @@ for:
     
   environment:
     NuGetAPIKey:
-      secure: aU9vw9DIzXNRjmiS8ZtYvFZij4RUvdpeqoR1XaaemfKUjdc3y2Qw+qzCNSHsLXxY
+      secure: dQfAg96Oa5m/lEerqsiYFi87FsxKxtVWG4ejbQBLDyxxymuNuf2xvh8Lkf5dTqBc
   deploy_script:
   - pwsh: >-
       & .\CI\Publish-Module.ps1 -NuGetAPIKey $env:NuGetAPIKey
