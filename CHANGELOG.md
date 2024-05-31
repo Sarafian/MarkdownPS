@@ -1,4 +1,4 @@
-**v1.10** *20240531*
+**v1.10** *In progress*
 - Fixed issue with GH-33 where the `New-MDQuote` would output extra `> ` between quote lines
 
 **v1.9** *20200227*
