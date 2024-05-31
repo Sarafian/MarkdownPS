@@ -233,7 +233,6 @@ $markdown
 > Multi line quote
 > 
 > > Line 1
-> >
 > > Line 2
 > 
 > # Links
