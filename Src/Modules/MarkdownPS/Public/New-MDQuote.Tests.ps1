@@ -25,7 +25,7 @@ Describe -Tag @("MarkdownPS","Cmdlet","Public","New-MDQuote") "New-MDQuote" {
         @("Line 1") | New-MDQuote | Should -Be $expected
     }
     It "-Lines count is 2 & -Level not specified" {
-        $expected="> Line 1"+$newLine+">"+$newLine+"> Line 2"+$newLine+$newLine
+        $expected="> Line 1"+$newLine+"> Line 2"+$newLine+$newLine
         New-MDQuote -Lines @("Line 1","Line 2") | Should -Be $expected
         @("Line 1","Line 2") | New-MDQuote | Should -Be $expected
     }
@@ -52,17 +52,17 @@ Describe -Tag @("MarkdownPS","Cmdlet","Public","New-MDQuote") "New-MDQuote" {
         @("Line 1") | New-MDQuote  -Level $level | Should -Be $expected
     }
     It "-Lines count is 2 & -Level provided" {
-        $expected="> Line 1"+$newLine+">"+$newLine+"> Line 2"+$newLine+$newLine
+        $expected="> Line 1"+$newLine+"> Line 2"+$newLine+$newLine
         $level=1
         New-MDQuote -Lines @("Line 1","Line 2") -Level $level | Should -Be $expected
         @("Line 1","Line 2") | New-MDQuote  -Level $level | Should -Be $expected
 
-        $expected=">> Line 1"+$newLine+">>"+$newLine+">> Line 2"+$newLine+$newLine
+        $expected=">> Line 1"+$newLine+">> Line 2"+$newLine+$newLine
         $level=2
         New-MDQuote -Lines @("Line 1","Line 2") -Level $level | Should -Be $expected
         @("Line 1","Line 2") | New-MDQuote  -Level $level | Should -Be $expected
 
-        $expected=">>> Line 1"+$newLine+">>>"+$newLine+">>> Line 2"+$newLine+$newLine
+        $expected=">>> Line 1"+$newLine+">>> Line 2"+$newLine+$newLine
         $level=3
         New-MDQuote -Lines @("Line 1","Line 2") -Level $level | Should -Be $expected
         @("Line 1","Line 2") | New-MDQuote  -Level $level | Should -Be $expected
@@ -78,7 +78,7 @@ Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDQuote -NoNewLine specifie
         @("Line 1") | New-MDQuote -NoNewLine | Should -Be $expected
     }
     It "-Lines count is 2 & -Level not specified" {
-        $expected="> Line 1"+$newLine+">"+$newLine+"> Line 2"+$newLine
+        $expected="> Line 1"+$newLine+"> Line 2"+$newLine
         New-MDQuote -Lines @("Line 1","Line 2") -NoNewLine | Should -Be $expected
         @("Line 1","Line 2") | New-MDQuote -NoNewLine | Should -Be $expected
     }
@@ -105,17 +105,17 @@ Describe -Tag @("MarkdownPS","Cmdlet","Public") "New-MDQuote -NoNewLine specifie
         @("Line 1") | New-MDQuote  -Level $level -NoNewLine | Should -Be $expected
     }
     It "-Lines count is 2 & -Level provided" {
-        $expected="> Line 1"+$newLine+">"+$newLine+"> Line 2"+$newLine
+        $expected="> Line 1"+$newLine+"> Line 2"+$newLine
         $level=1
         New-MDQuote -Lines @("Line 1","Line 2") -Level $level -NoNewLine | Should -Be $expected
         @("Line 1","Line 2") | New-MDQuote  -Level $level -NoNewLine | Should -Be $expected
 
-        $expected=">> Line 1"+$newLine+">>"+$newLine+">> Line 2"+$newLine
+        $expected=">> Line 1"+$newLine+">> Line 2"+$newLine
         $level=2
         New-MDQuote -Lines @("Line 1","Line 2") -Level $level -NoNewLine | Should -Be $expected
         @("Line 1","Line 2") | New-MDQuote  -Level $level -NoNewLine | Should -Be $expected
 
-        $expected=">>> Line 1"+$newLine+">>>"+$newLine+">>> Line 2"+$newLine
+        $expected=">>> Line 1"+$newLine+">>> Line 2"+$newLine
         $level=3
         New-MDQuote -Lines @("Line 1","Line 2") -Level $level -NoNewLine | Should -Be $expected
         @("Line 1","Line 2") | New-MDQuote  -Level $level -NoNewLine | Should -Be $expected
