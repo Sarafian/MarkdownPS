@@ -27,7 +27,7 @@ for:
     
   environment:
     NuGetAPIKey:
-      secure: dQfAg96Oa5m/lEerqsiYFi87FsxKxtVWG4ejbQBLDyxxymuNuf2xvh8Lkf5dTqBc
+      secure: 0N0ZjH0Mkw++Pr4WCPV8V1bDAnITjRrdD/mGCGcmtGiXqPzGdDJxYMdZmqPoi00G
   deploy_script:
   - pwsh: >-
       & .\CI\Publish-Module.ps1 -NuGetAPIKey $env:NuGetAPIKey
