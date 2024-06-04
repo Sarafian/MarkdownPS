@@ -1,9 +1,10 @@
 <#
     .SYNOPSIS
-        This commandlet output markdown alerts based on blockquote in markdown syntax
+        This commandlet output Github Flavoured Markdown alerts based on blockquote in markdown syntax
 
     .DESCRIPTION
-        This cmdlet outputs a quote in markdown syntax by adding `> [!STYLE]` as the first line, followed by the input lines each prefixed with `> ` on consecutive lines.
+        This cmdlet outputs a quote in markdown syntax which are Github Flavoured Markdown syntax, by adding `> [!STYLE]` as the first line, followed by the input lines each prefixed with `> ` on consecutive lines. 
+        Refer "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts" for more details.
 
     .PARAMETER  Lines
         An array of lines to quote in markdown
@@ -21,11 +22,18 @@
         > Line 1
 
     .EXAMPLE
+        New-MDAlert -Lines "Line 1" -Style Tip
+
+        > [!NOTE]
+        > Line 1
+
+        # Style accepts one of 4 value (Note, Tip, Important and Warning)        
+
+    .EXAMPLE
         New-MDAlert -Lines @("Line 1","Line 2") -Style Important
 
         > [!IMPORTANT]
         > Line 1
-        > 
         > Line 2
 
     .EXAMPLE
@@ -33,11 +41,13 @@
 
         >> [!CAUTION]
         >> Line 1
-        >>
         >> Line 2
 
+    .LINK
+    Refer "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts" for more details.
+
     .INPUTS
-        An array of lines
+        An array of lines and choice of Style
 
     .OUTPUTS
         First line > [!STYLE] followed by each input line with a '> ' in the front 
@@ -67,8 +77,8 @@ function New-MDAlert {
     
     Begin {
         $output = ''
-        $Admonition = '[!{0}]' -f $Style.ToUpper()
-        $output += New-MDQuote -Lines $Admonition -Level 1 -NoNewLine
+        $admonition = '[!{0}]' -f $Style.ToUpper()
+        $output += New-MDQuote -Lines $admonition -Level 1 -NoNewLine
     }
     
     Process {
