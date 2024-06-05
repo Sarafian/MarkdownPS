@@ -23,6 +23,7 @@ A powershell module to render markdown files.
 - New-MDList
 - New-MDParagraph
 - New-MDQuote
+- New-MDAlert
 - New-MDTable
 
 # Example script
@@ -121,6 +122,22 @@ $lines=@(
     "Line 2"
 )
 $markdown+=New-MDQuote -Lines $lines
+#endregion
+
+#region Github Flavoured Markdown Alerts
+$markdown+=New-MDHeader "Github Flavoured Markdown Alerts"
+$markdown+=New-MDParagraph -Lines "This is an important information"
+$lines=@(
+    "Alert is special callout style used in Github Flavoured Markdows"
+)
+$markdown+=New-MDAlert -Lines $lines -Style Important
+
+$markdown+=New-MDParagraph -Lines "Multi line Alert with 'Tip' Style"
+$lines=@(
+    "Git is "
+    "Line 2"
+)
+$markdown+=New-MDAlert -Lines $lines -Style Tip
 #endregion
 
 #region 
@@ -233,6 +250,18 @@ $markdown
 > Multi line quote
 > 
 > > Line 1
+> > Line 2
+>
+> # Github Flavoured Markdown Alerts
+> This is an important information
+> 
+> > [!IMPORTANT]
+> > Alert is special callout style used in Github Flavoured Markdows
+> 
+> Multi line Alert with 'Tip' Style
+> 
+> > [!TIP]
+> > Git is 
 > > Line 2
 > 
 > # Links

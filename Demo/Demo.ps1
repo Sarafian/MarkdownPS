@@ -91,6 +91,22 @@ $lines=@(
 $markdown+=New-MDQuote -Lines $lines
 #endregion
 
+#region Github Flavoured Markdown Alerts
+$markdown+=New-MDHeader "Github Flavoured Markdown Alerts"
+$markdown+=New-MDParagraph -Lines "This is an important information"
+$lines=@(
+    "Alert is special callout style used in Github Flavoured Markdows"
+)
+$markdown+=New-MDAlert -Lines $lines -Style Important
+
+$markdown+=New-MDParagraph -Lines "Multi line Alert with 'Tip' Style"
+$lines=@(
+    "Git is "
+    "Line 2"
+)
+$markdown+=New-MDAlert -Lines $lines -Style Tip
+#endregion
+
 #region 
 $markdown+=New-MDHeader "Links"
 $markdown+="This is "+(New-MDLink -Text "an example" -Link "http://www.example.com/")+" inline link."
