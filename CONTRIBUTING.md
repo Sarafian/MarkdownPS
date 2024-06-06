@@ -9,7 +9,12 @@ When adding or modifying existing functionality of the module, please consider t
 - All cmdlets are fully tested, so please make sure to adjust or add the respected tests.
 - When implementing a new cmdlet, locate one that is the most similar and copy that structure. Some parameters will be the same.
 - Take special notice to the `NoNewLine` parameter for all cmdlets. Please keep it's functionality and implementation consistent.
-- Cmdlets are not meant to be pipelined because the expectation is that some text will be required between different blocks and because the `-NoNewLine` parameter wouldn't make sense anyhow. For this reason the `Begin` block holds code only for stable values and everything else in the `Process` block.
+- Cmdlets must support pipeline input when multiple lines are expected. To achieve this, the cmdlets must build up the `$output` buffer with the following functionality in each block:
+  - The `Begin` block performs operations independent from the `$Lines` e.g. initialization.
+  - The `Process` block performs operations dependent to the `$Lines`.
+  - The `End` block, takes care of the `NoNewLine` parameter and outputs the buffer to the pipeline.
+  
+  For more inspiration please look into the `New-MDQuote`, `New-MDAlert` and `New-MDTable` for ever increasing complexity.
 - The cmdlets are reasonably well documented and this level is expected to maintained. If the function refers to a specific non-standard function like the `New-MDAlert` then please do make sure to provide the link in the `Description` that would also help explain what the parameters do. In this case, you can also use those examples as text with the cmdlet's examples.
 - There is a `Demo.ps1` file that demonstrates the usage of the cmdlets and its output is also added as quote in the [README.md]. Please make sure to reflect the cmdlet changes in those files. If the code is about a new cmdlet, please add the right section in those files.
 - Make sure to include your changes in the [CHANGELOG.md] under the `In progress` section at the top. Please mention your name/id as the contributor. The versioning and publishing scheme is explained further below.
