@@ -81,10 +81,6 @@ function New-MDQuote {
 
     Process {
         $Lines|ForEach-Object {
-            # if($output -ne "")
-            # {
-            #     $output+="$prefix"+[System.Environment]::NewLine
-            # }
             $output+="$prefix "+$_+[System.Environment]::NewLine
         }
     }
