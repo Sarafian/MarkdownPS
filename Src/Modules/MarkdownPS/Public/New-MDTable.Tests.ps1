@@ -144,7 +144,7 @@ Describe -Tag @("MarkdownPS","Cmdlet","Public","New-MDTable") "New-MDTable with 
         $elements.Count | Should -Be 6
         $elements[0].Length | Should -Be 0
         $elements[1] | Should  -Match " -* "
-        $elements[2] | Should  -Match " -* "
+        $elements[2] | Should  -Match ":-* "
         $elements[3] | Should  -Match ":-*:"
         $elements[4] | Should  -Match " -*:"
         $elements[5].Length | Should -Be 0
