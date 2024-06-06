@@ -14,6 +14,7 @@ A powershell module to render markdown files.
 
 # Commandlets
 
+- New-MDAlert
 - New-MDCharacterStyle
 - New-MDCode
 - New-MDHeader
