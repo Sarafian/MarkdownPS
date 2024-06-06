@@ -134,7 +134,7 @@ $markdown+=New-MDAlert -Lines $lines -Style Important
 
 $markdown+=New-MDParagraph -Lines "Multi line Alert with 'Tip' Style"
 $lines=@(
-    "Git is "
+    "Line 1"
     "Line 2"
 )
 $markdown+=New-MDAlert -Lines $lines -Style Tip
@@ -261,7 +261,7 @@ $markdown
 > Multi line Alert with 'Tip' Style
 > 
 > > [!TIP]
-> > Git is 
+> > Line 1 
 > > Line 2
 > 
 > # Links

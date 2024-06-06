@@ -78,6 +78,8 @@ function New-MDAlert {
     Begin {
         $output = ''
         $newLine = [System.Environment]::NewLine
+        $admonition = '> [!{0}]' -f $Style.ToUpper()
+        $output += $admonition + $newLine
     }
     
     Process {
@@ -85,8 +87,6 @@ function New-MDAlert {
     }
     
     End {
-        $admonition = '> [!{0}]' -f $Style.ToUpper()
-        $output = $admonition + $newLine +$output
         if (-not $NoNewLine) {
             $output += $newLine
         }
