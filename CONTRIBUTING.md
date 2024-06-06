@@ -16,7 +16,7 @@ When adding or modifying existing functionality of the module, please consider t
   
   For more inspiration please look into the `New-MDQuote`, `New-MDAlert` and `New-MDTable` for ever increasing complexity.
 - The cmdlets are reasonably well documented and this level is expected to maintained. If the function refers to a specific non-standard function like the `New-MDAlert` then please do make sure to provide the link in the `Description` that would also help explain what the parameters do. In this case, you can also use those examples as text with the cmdlet's examples.
-- There is a `Demo.ps1` file that demonstrates the usage of the cmdlets and its output is also added as quote in the [README.md]. Please make sure to reflect the cmdlet changes in those files. If the code is about a new cmdlet, please add the right section in those files.
+- There is a [Showcase] folder with [Showcase.ps1] that demonstrates the usage of the cmdlets. Its markdown output is demostrated in the [Showcase.md] for easy visualization. Please make sure that the two files are in synch and reflect your latest changes. The [Update-Showcase.ps1] will do this for you and must be executed before merging.
 - Make sure to include your changes in the [CHANGELOG.md] under the `In progress` section at the top. Please mention your name/id as the contributor. The versioning and publishing scheme is explained further below.
 
 # Non functional changes
@@ -49,4 +49,8 @@ When the new version is ready
 
 [CHANGELOG.md]: CHANGELOG.md
 [README.md]: README.md
+[Showcase]: Showcase
+[Showcase.ps1]: Showcase/Showcase.ps1
+[Showcase.md]: Showcase/Showcase.md
+[Update-Showcase.ps1]: CI/Update-Showcase.ps1
 [PowerShellTemplate]: https://github.com/Sarafian/PowerShellTemplate
