@@ -166,7 +166,7 @@ function New-MDTable {
             switch($Columns[$key]) 
             {
                 "left" {
-                    $separator += ' '+ $dashes +' '
+                    $separator += ':'+ $dashes +' '
                 }
                 "right" {
                     $separator += ' '+ $dashes +':'

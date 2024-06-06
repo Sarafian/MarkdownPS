@@ -1,6 +1,7 @@
 **v1.10** *In progress*
 - Fixed issue with GH-33 where the `New-MDQuote` would output extra `> ` between quote lines
-- GH-28 Added new command `New-MDAlert` for GFM Alerts - thanks to @belibug
+- GH-28 Added new command `New-MDAlert` for GFM Alerts. Thanks to @belibug
+- GH-42 Fixed a bug with the left alignment of columns with `New-MDTable`. Thanks to @aaronparker
 
 **v1.9** *20200227*
 - Based on GH-20 the default output of `New-MDTable` has a cell length alignment per column. New parameter `-Shrink` is added to reduce the overall size and each cell is not padded. Thanks to @al-cheb

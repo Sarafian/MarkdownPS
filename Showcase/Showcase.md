@@ -114,7 +114,7 @@ Without aligned columns
 With aligned columns
 
 | Name                 | CommandType | Version |
-| -------------------- |:-----------:| -------:|
+|:-------------------- |:-----------:| -------:|
 | New-MDAlert          | Function    | 0.0     |
 | New-MDCharacterStyle | Function    | 0.0     |
 | New-MDCode           | Function    | 0.0     |
