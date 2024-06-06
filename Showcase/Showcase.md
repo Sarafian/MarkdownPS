@@ -51,6 +51,18 @@ Multi line quote
 > Line 1
 > Line 2
 
+# Github Flavoured Markdown Alerts
+This is an important information
+
+> [!IMPORTANT]
+> Key information users need to know to achieve their goal.
+
+Multi line Alert with 'Tip' Style
+
+> [!TIP]
+> Helpful advice 
+> for doing things better or more easily.
+
 # Links
 This is [an example](http://www.example.com/) inline link.
 
@@ -88,6 +100,7 @@ Without aligned columns
 
 | Name                 | CommandType | Version |
 | -------------------- | ----------- | ------- |
+| New-MDAlert          | Function    | 0.0     |
 | New-MDCharacterStyle | Function    | 0.0     |
 | New-MDCode           | Function    | 0.0     |
 | New-MDHeader         | Function    | 0.0     |
@@ -102,6 +115,7 @@ With aligned columns
 
 | Name                 | CommandType | Version |
 | -------------------- |:-----------:| -------:|
+| New-MDAlert          | Function    | 0.0     |
 | New-MDCharacterStyle | Function    | 0.0     |
 | New-MDCode           | Function    | 0.0     |
 | New-MDHeader         | Function    | 0.0     |
