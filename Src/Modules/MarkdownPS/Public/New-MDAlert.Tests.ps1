@@ -24,7 +24,7 @@ Describe -Tag @('MarkdownPS', 'Cmdlet', 'Public', 'New-MDAlert') 'New-MDAlert' {
         @('Line 1') | New-MDAlert | Should -Be $expected
     }
     It '-Lines count is 2 & -Style not specified' {
-        $expected = '> [!NOTE]' + $newLine + '> Line 1' + $newLine + '> Line 2' + $newLine + $newLine
+        $expected = '> [!NOTE]' + $newLine + '> Line 1' + $newLine + '>' + $newLine + '> Line 2' + $newLine + $newLine
         # New-MDAlert -Lines @('Line 1', 'Line 2') | Should -Be $expected
         @('Line 1', 'Line 2') | New-MDAlert | Should -Be $expected
     }
@@ -36,7 +36,7 @@ Describe -Tag @('MarkdownPS', 'Cmdlet', 'Public', 'New-MDAlert') 'New-MDAlert' {
         @('Line 1') | New-MDAlert -Style Tip | Should -Be $expected
     }
     It '-Lines count is 2 & -Level provided' {
-        $expected = '> [!TIP]' + $newLine + '> Line 1' + $newLine + '> Line 2' + $newLine + $newLine
+        $expected = '> [!TIP]' + $newLine + '> Line 1' + $newLine + '>' + $newLine + '> Line 2' + $newLine + $newLine
         New-MDAlert -Lines @('Line 1', 'Line 2') -Style Tip | Should -Be $expected
         @('Line 1', 'Line 2') | New-MDAlert -Style Tip | Should -Be $expected
     }

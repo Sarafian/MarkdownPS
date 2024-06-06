@@ -80,9 +80,14 @@ function New-MDAlert {
         $newLine = [System.Environment]::NewLine
         $admonition = '> [!{0}]' -f $Style.ToUpper()
         $output += $admonition + $newLine
+        $processCallCounter = 0
     }
     
     Process {
+        $processCallCounter++
+        if ($processCallCounter -gt 1) { 
+            $output += '>' + $newLine
+        }
         $output += New-MDQuote -Lines $Lines -Level 1 -NoNewLine
     }
     
