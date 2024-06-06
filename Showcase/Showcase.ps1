@@ -95,14 +95,14 @@ $markdown+=New-MDQuote -Lines $lines
 $markdown+=New-MDHeader "Github Flavoured Markdown Alerts"
 $markdown+=New-MDParagraph -Lines "This is an important information"
 $lines=@(
-    "Alert is special callout style used in Github Flavoured Markdows"
+    "Key information users need to know to achieve their goal."
 )
 $markdown+=New-MDAlert -Lines $lines -Style Important
 
 $markdown+=New-MDParagraph -Lines "Multi line Alert with 'Tip' Style"
 $lines=@(
-    "Line 1"
-    "Line 2"
+    "Helpful advice "
+    "for doing things better or more easily."
 )
 $markdown+=New-MDAlert -Lines $lines -Style Tip
 #endregion
@@ -162,5 +162,3 @@ $markdown+=Get-Command -Module MarkdownPS | New-MDTable -Columns ([ordered]@{Nam
 #endregion
 
 $markdown
-
-
