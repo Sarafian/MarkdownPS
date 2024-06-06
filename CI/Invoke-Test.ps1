@@ -1,3 +1,11 @@
+<#PSScriptInfo
+
+.VERSION 1.0
+
+.LASTIMPORT 20240606
+
+#>
+
 param(
     [Parameter(Mandatory=$true,ParameterSetName="AppVeyor")]
     [switch]$AppVeyor,
@@ -37,6 +45,7 @@ if($CodeCoverage)
 }
 
 $pesterResult=Invoke-Pester -Configuration $pesterConfiguration
+
 if($CodeCoverage)
 {
     $pesterResult|Select-Object @{
@@ -59,7 +68,7 @@ switch($PSCmdlet.ParameterSetName) {
         (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", $outputFile)
         if ($pesterResult.FailedCount -gt 0) { 
             throw "$($pesterResult.FailedCount) tests failed."
-       }        
+       }
     }
     'Console' {
 
