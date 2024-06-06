@@ -39,9 +39,9 @@
     .EXAMPLE
         @("Line 1","Line 2") | New-MDAlert -Style Caution
 
-        >> [!CAUTION]
-        >> Line 1
-        >> Line 2
+        > [!CAUTION]
+        > Line 1
+        > Line 2
 
     .LINK
     Refer "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts" for more details.
@@ -77,19 +77,18 @@ function New-MDAlert {
     
     Begin {
         $output = ''
-        $admonition = '[!{0}]' -f $Style.ToUpper()
-        $output += New-MDQuote -Lines $admonition -Level 1 -NoNewLine
+        $newLine = [System.Environment]::NewLine
     }
     
     Process {
-        $lines | ForEach-Object {
-            $output += New-MDQuote -Lines $_ -Level 1 -NoNewLine
-        }
+        $output += New-MDQuote -Lines $Lines -Level 1 -NoNewLine
     }
     
     End {
+        $admonition = '> [!{0}]' -f $Style.ToUpper()
+        $output = $admonition + $newLine +$output
         if (-not $NoNewLine) {
-            $output += [System.Environment]::NewLine
+            $output += $newLine
         }
         $output
     }
