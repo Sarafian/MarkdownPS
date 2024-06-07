@@ -102,6 +102,7 @@ Without aligned columns
 
 | Name                 | CommandType | Version |
 | -------------------- | ----------- | ------- |
+| New-MDAlert          | Function    | 0.0     |
 | New-MDCharacterStyle | Function    | 0.0     |
 | New-MDCode           | Function    | 0.0     |
 | New-MDHeader         | Function    | 0.0     |
@@ -116,6 +117,7 @@ With aligned columns
 
 | Name                 | CommandType | Version |
 |:-------------------- |:-----------:| -------:|
+| New-MDAlert          | Function    | 0.0     |
 | New-MDCharacterStyle | Function    | 0.0     |
 | New-MDCode           | Function    | 0.0     |
 | New-MDHeader         | Function    | 0.0     |
