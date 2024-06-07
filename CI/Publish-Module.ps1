@@ -1,14 +1,24 @@
+<#PSScriptInfo
+
+.VERSION 1.0
+
+.LASTIMPORT 20240606
+
+#>
+
 #Requires -Modules @{ ModuleName="SemVerPS"; ModuleVersion="1.0" }
 
 param(
-    [Parameter(Mandatory=$false,ParameterSetName="Template")]
+    [Parameter(Mandatory=$false)]
     [string]$NuGetApiKey=$null,
-    [Parameter(Mandatory=$false,ParameterSetName="Template")]
+    [Parameter(Mandatory=$false)]
     [string]$Repository="PSGallery",
-    [Parameter(Mandatory=$false,ParameterSetName="Template")]
+    [Parameter(Mandatory=$false)]
     [switch]$AutoIncrementMinor=$false,
-    [Parameter(Mandatory=$false,ParameterSetName="Template")]
-    [switch]$KeepManifests=$false
+    [Parameter(Mandatory=$false)]
+    [switch]$Mock=$false,
+    [Parameter(Mandatory=$false)]
+    [switch]$WhatIf=$false
 )
 
 $sourceModuleItems=Get-ChildItem -Path "$PSScriptRoot\..\Src\Modules" -Directory
@@ -17,7 +27,7 @@ $sourceModuleItems |ForEach-Object {
     $sourceModuleItem=$_
 
     $moduleName=$sourceModuleItem.Name
-    $modulePath=$sourceModuleItem.FullName
+    $modulePath=Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath $sourceModuleItem.Name
     $psm1Path=Join-Path $modulePath "$moduleName.psm1"
     $psd1Path=Join-Path $modulePath "$moduleName.psd1"
 
@@ -26,7 +36,8 @@ $sourceModuleItems |ForEach-Object {
     Write-Debug "psm1Path=$psm1Path"
     Write-Debug "psd1Path=$psd1Path"
 
-    Remove-Item -Path $psd1Path -Force -ErrorAction SilentlyContinue
+    Remove-Item -Path $modulePath -Recurse -Force -ErrorAction SilentlyContinue
+    Copy-Item -Path $sourceModuleItem.FullName -Destination $modulePath -Recurse -Exclude "*.Tests.ps1"
 
     $progressSplat=@{
         Activity=$moduleName
@@ -124,14 +135,10 @@ $sourceModuleItems |ForEach-Object {
                 $mockKey="MockKey"
                 Publish-Module -Repository $Repository -Path $modulePath -NuGetApiKey $mockKey -WhatIf
             }
-            Write-Host "Published $($sourceModuleItem.FullName)"
+            Write-Host "Published $modulePath"
         }
     }
     finally{
-        if(-not $KeepManifests)
-        {
-            Remove-Item -Path $psd1Path -Force -ErrorAction SilentlyContinue
-        }
         Write-Progress @progressSplat -Completed
     }
 }
