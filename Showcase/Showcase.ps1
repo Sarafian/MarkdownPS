@@ -8,6 +8,13 @@ Import-Module "$PSScriptRoot\..\Src\Modules\Import-MarkdownPS.ps1"
 
 $markdown=""
 
+#region Do not edit the file directly
+$markdown=""
+$doNotEdit="Do not edit directly. Please refer to the "
+$doNotEdit+=New-MDLink -Text "CONTRIBUTING.md" -Link "../CONTRIBUTING.md"
+$markdown+=New-MDAlert -Lines $doNotEdit -Style Important
+#endregion
+
 #region headers
 
 $markdown+=New-MDHeader "Headings"
