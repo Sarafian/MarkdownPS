@@ -49,6 +49,7 @@ In the words of Abraham Lincoln:
 Multi line quote
 
 > Line 1
+>
 > Line 2
 
 # Github Flavoured Markdown Alerts
@@ -61,6 +62,7 @@ Multi line Alert with 'Tip' Style
 
 > [!TIP]
 > Helpful advice 
+>
 > for doing things better or more easily.
 
 # Links

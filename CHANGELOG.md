@@ -1,5 +1,4 @@
 **v1.10** *In progress*
-- Fixed issue with GH-33 where the `New-MDQuote` would output extra `> ` between quote lines
 - GH-28 Added new command `New-MDAlert` for GFM Alerts. Thanks to @belibug
 - GH-42 Fixed a bug with the left alignment of columns with `New-MDTable`. Thanks to @aaronparker
 

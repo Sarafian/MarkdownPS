@@ -80,13 +80,16 @@ function New-MDAlert {
         $newLine = [System.Environment]::NewLine
         $admonition = '> [!{0}]' -f $Style.ToUpper()
         $output += $admonition + $newLine
+        $allLines = @()
     }
     
     Process {
-        $output += New-MDQuote -Lines $Lines -Level 1 -NoNewLine
+        # Buffer all lines, because the Process block will process each line separately and provided to the New-MDQuote which will not add the separators
+        $allLines += $Lines
     }
-    
+        
     End {
+        $output += New-MDQuote -Lines $allLines -Level 1 -NoNewLine
         if (-not $NoNewLine) {
             $output += $newLine
         }
