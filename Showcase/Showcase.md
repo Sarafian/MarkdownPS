@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> Do not edit directly. Please refer to the [CONTRIBUTING.md](../CONTRIBUTING.md)
+
 # Headings
 ## The second largest heading
 ###### The smallest heading
