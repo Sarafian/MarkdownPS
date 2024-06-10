@@ -5,7 +5,7 @@
 	"RootModule"="MarkdownPS.psm1"
 	"Description"="PowerShell module for Semantic Version"
 	"Guid"="c1e7cbac-9e47-4906-8281-5f16471d7ccd"
-	"ModuleVersion"="1.9"
+	"ModuleVersion"="1.10"
 	# Optional fields
 	"Author"="Alex Sarafian"
 	# "CompanyName" = "Company name"

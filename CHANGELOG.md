@@ -1,15 +1,17 @@
-**v1.10** *In progress*
+**v1.11** Placeholder
+
+**v1.10** 20240610
 - GH-28 Added new command `New-MDAlert` for GFM Alerts. Thanks to @belibug
 - GH-42 Fixed a bug with the left alignment of columns with `New-MDTable`. Thanks to @aaronparker
 
-**v1.9** *20200227*
+**v1.9** 20200227
 - Based on GH-20 the default output of `New-MDTable` has a cell length alignment per column. New parameter `-Shrink` is added to reduce the overall size and each cell is not padded. Thanks to @al-cheb
 
-**v1.6** *20160420*
+**v1.6** 20160420
 - Fixed published manifest file which broke the 1.5 module.
 - No code changes.
 
-**v1.5** *20160420*
+**v1.5** 20160420
 - GH-17 thanks to @Wav3
 - Removed from the manifest the `PowerShellHostVersion` because it created some issues with *in-remoting* like sessions.
 
