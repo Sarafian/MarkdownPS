@@ -25,7 +25,7 @@ Describe -Tag @('MarkdownPS', 'Cmdlet', 'Public', 'New-MDAlert') 'New-MDAlert' {
     }
     It '-Lines count is 2 & -Style not specified' {
         $expected = '> [!NOTE]' + $newLine + '> Line 1' + $newLine + '>' + $newLine + '> Line 2' + $newLine + $newLine
-        # New-MDAlert -Lines @('Line 1', 'Line 2') | Should -Be $expected
+        New-MDAlert -Lines @('Line 1', 'Line 2') | Should -Be $expected
         @('Line 1', 'Line 2') | New-MDAlert | Should -Be $expected
     }
     It '-Lines count is 1 & -Style provided' {
