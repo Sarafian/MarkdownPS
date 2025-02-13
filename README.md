@@ -5,7 +5,7 @@
 
 A powershell module to render markdown files. 
 
-[MarkdownPS](https://www.powershellgallery.com/packages/MarkdownPS/) is a PowerShell module available on powershell gallery that helps render markdown. Once in markdown, it can be easily converted into any other format. Potential use cases are:
+[MarkdownPS] is a PowerShell module available on powershell gallery that helps render markdown. Once in markdown, it can be easily converted into any other format. Potential use cases are:
 
 - Render a report after executing a script. 
 - Generate sort of dashboard pages as a result of querying resources with a script.
@@ -29,5 +29,12 @@ A powershell module to render markdown files.
 
 An example script demostrating the capabilities of the module is available with [Showcase.ps1]. The script generates markdown which is available in the [Showcase.md] for demostration purposes.
 
+> [!IMPORTANT]  
+> If you consistently use this module, please contact me. I'm just curious.
+> Links on my [Github profile].
+> Thank you.
+
+[MarkdownPS]: https://www.powershellgallery.com/packages/MarkdownPS/
 [Showcase.ps1]: Showcase/Showcase.ps1
 [Showcase.md]: Showcase/Showcase.md
+[Github profile]: https://github.com/Sarafian
