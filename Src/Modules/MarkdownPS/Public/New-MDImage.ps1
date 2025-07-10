@@ -131,7 +131,7 @@ function New-MDImage {
                 $Status=$Status.Replace("(","%28").Replace(")","%29")
             }
             
-            $shieldIo="$Subject-$Status-$Color"
+            $shieldIo="$Subject-$Status-$($Color.ToLower())"
 
             $Source="https://img.shields.io/badge/$shieldIo.svg"
             if($Style)
