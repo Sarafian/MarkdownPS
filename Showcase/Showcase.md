@@ -74,9 +74,9 @@ This is [an example](http://www.example.com/) inline link.
 [This link](http://www.example.com/ "Title") has a title attribute.
 
 # Images
-![Alt text](http://www.iana.org/_img/2013.1/iana-logo-header.svg)
+![Alt text](https://www.iana.org/_img/2025.01/iana-logo-header.svg)
 
-![Alt text](http://www.iana.org/_img/2013.1/iana-logo-header.svg "Optional title attribute")
+![Alt text](https://www.iana.org/_img/2025.01/iana-logo-header.svg "Optional title attribute")
 
 # Badges
 ## shields.io

@@ -123,9 +123,9 @@ $markdown+=(New-MDLink -Text "This link" -Link "http://www.example.com/" -Title 
 $markdown+=New-MDParagraph
 
 $markdown+=New-MDHeader "Images"
-$markdown+=New-MDImage -Source "http://www.iana.org/_img/2013.1/iana-logo-header.svg" -AltText "Alt text"
+$markdown+=New-MDImage -Source "https://www.iana.org/_img/2025.01/iana-logo-header.svg" -AltText "Alt text"
 $markdown+=New-MDParagraph
-$markdown+=New-MDImage -Source "http://www.iana.org/_img/2013.1/iana-logo-header.svg" -AltText "Alt text" -Title "Optional title attribute"
+$markdown+=New-MDImage -Source "https://www.iana.org/_img/2025.01/iana-logo-header.svg" -AltText "Alt text" -Title "Optional title attribute"
 $markdown+=New-MDParagraph
 
 $markdown+=New-MDHeader "Badges"
